@@ -233,3 +233,124 @@ products:
     url: "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-chaos-rising-elite-trainer-box/JJG2TL34RT"
     retailer: best_buy
     target_price: 49.99
+
+  - name: "Chaos Rising Booster Bundle (Best Buy)"
+    url: "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-chaos-rising-booster-bundle/JJG2TL34H9"
+    retailer: best_buy
+    target_price: 26.94
+
+  # ── Perfect Order ME03 (March 2026) ────────────────
+  - name: "Perfect Order ETB (Amazon)"
+    url: "https://www.amazon.com/dp/B0GFZV1ZVV"
+    retailer: amazon
+    target_price: 49.99
+
+  # ── Ascended Heroes (January 2026) ─────────────────
+  - name: "Ascended Heroes ETB (Amazon)"
+    url: "https://www.amazon.com/dp/B0G3CY83L5"
+    retailer: amazon
+    target_price: 49.99
+
+  # ── 151 at more retailers ──────────────────────────
+  - name: "151 Booster Bundle (Best Buy)"
+    url: "https://www.bestbuy.com/product/pokemon-trading-card-game-151-6pk-booster-bundle/J3YSYH352W"
+    retailer: best_buy
+    target_price: 29.99
+
+  - name: "151 Poster Collection (Best Buy)"
+    url: "https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-151-poster-collection/J3YSYH35JR"
+    retailer: best_buy
+    target_price: 14.99
+
+  - name: "151 ETB (Best Buy)"
+    url: "https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-and-violet-151-5pk-elite-trainer-box/J3YSYH35J7"
+    retailer: best_buy
+    target_price: 49.99
+
+  # ── Prismatic Evolutions variants ─────────────────
+  - name: "Prismatic Evolutions Binder Collection (Amazon)"
+    url: "https://www.amazon.com/dp/B0DLPHRLSJ"
+    retailer: amazon
+    target_price: 35.99
+
+  - name: "Prismatic Evolutions Mini Tin Umbreon (Amazon)"
+    url: "https://www.amazon.com/dp/B0DLQRKYDY"
+    retailer: amazon
+    target_price: 10.99
+
+  - name: "Prismatic Evolutions Mini Tin Leafeon (Amazon)"
+    url: "https://www.amazon.com/dp/B0DLQPL9G9"
+    retailer: amazon
+    target_price: 10.99
+
+  - name: "Prismatic Evolutions Mini Tin Vaporeon (Amazon)"
+    url: "https://www.amazon.com/dp/B0DLQPQTBV"
+    retailer: amazon
+    target_price: 10.99
+
+  - name: "Prismatic Evolutions Binder Collection (Target)"
+    url: "https://www.target.com/p/2025-pokemon-prismatic-evolutions-binder-collection/-/A-94300066"
+    retailer: target
+    target_price: 35.99
+    check_mode: any
+    extra:
+      tcin: "94300066"
+
+  - name: "Prismatic Evolutions Mini Tin (GameStop)"
+    url: "https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-prismatic-evolutions--mini-tin-styles-may-vary/20018747.html"
+    retailer: gamestop
+    target_price: 10.99
+
+  - name: "Prismatic Evolutions Binder Collection (GameStop)"
+    url: "https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-prismatic-evolutions-binder-collection/20018509.html"
+    retailer: gamestop
+    target_price: 35.99
+
+  # ── Surging Sparks missing products ───────────────
+  - name: "Surging Sparks Booster Box (Amazon)"
+    url: "https://www.amazon.com/dp/B0DFBGYFD3"
+    retailer: amazon
+    target_price: 159.99
+
+  - name: "Surging Sparks Booster Bundle (GameStop)"
+    url: "https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-scarlet-and-violet-surging-sparks-booster-bundle/20015262.html"
+    retailer: gamestop
+    target_price: 29.99
+
+  # ── One Piece TCG — Amazon ─────────────────────────
+  - name: "One Piece OP-09 Emperors in New World (Amazon)"
+    url: "https://www.amazon.com/dp/B0DQ6JGQKH"
+    retailer: amazon
+    target_price: 119.99
+
+  - name: "One Piece OP-11 Fist of Divine Speed (Amazon)"
+    url: "https://www.amazon.com/dp/B0F85QYZJ6"
+    retailer: amazon
+    target_price: 119.99
+
+  # ── One Piece TCG — Best Buy ───────────────────────
+  # ── 151 at Target ──────────────────────────────────
+  - name: "151 ETB (Target)"
+    url: "https://www.target.com/p/pokemon-trading-card-game-scarlet-38-violet-151-elite-trainer-box/-/A-88897899"
+    retailer: target
+    target_price: 49.99
+    check_mode: any
+    extra:
+      tcin: "88897899"
+
+  # ── GameStop ──────────────────────────────────────
+  - name: "Chaos Rising ETB (GameStop)"
+    url: "https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-chaos-rising-elite-trainer-box/20033749.html"
+    retailer: gamestop
+    target_price: 49.99
+
+  # ── One Piece TCG — Best Buy ───────────────────────
+  - name: "One Piece OP-09 Booster Box (Best Buy)"
+    url: "https://www.bestbuy.com/product/one-piece-tcg-emperors-in-the-new-world-booster-box/6584756"
+    retailer: best_buy
+    target_price: 119.99
+
+  - name: "One Piece OP-10 Royal Blood (Best Buy)"
+    url: "https://www.bestbuy.com/product/one-piece-tcg-royal-blood-booster-box/6584757"
+    retailer: best_buy
+    target_price: 119.99
