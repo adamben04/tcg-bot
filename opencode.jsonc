@@ -1,0 +1,48 @@
+{
+  "$schema": "https://opencode.ai/opencode-schema.json",
+  "name": "TCG Stock Bot",
+  "description": "Pokémon TCG + One Piece TCG stock tracking bot with Discord webhook notifications and Cloudflare Pages dashboard",
+  "customCommands": [
+    {
+      "name": "validate-config",
+      "description": "Validate config.yaml and check URL reachability",
+      "command": "python validate_config.py"
+    },
+    {
+      "name": "run-checker",
+      "description": "Run the stock checker locally (dry run, no notifications)",
+      "command": "python checker.py"
+    },
+    {
+      "name": "lookup-zip",
+      "description": "Check Target/Best Buy inventory for a ZIP code",
+      "command": "curl -s 'https://tcg-bot.pages.dev/api/lookup?zip=ZIP'"
+    }
+  ],
+  "agentRules": [
+    "Before making changes, read the full file to understand conventions",
+    "Use var instead of const/let in Cloudflare Functions (ES5 compatibility)",
+    "Never add comments to code",
+    "If a product is above target_price or from a marketplace seller, mark it out_of_stock",
+    "Target API calls go through redsky.target.com/pdp_client_v1 (api.target.com is blocked from Workers)",
+    "Best Buy stores endpoint requires numeric SKUs",
+    "Dashboard is at docs/index.html, in-store lookup at docs/inventory.html",
+    "Checker runs via GitHub Actions (.github/workflows/checker.yml)",
+    "Cloudflare Pages deploys from the main branch"
+  ],
+  "projectOverview": {
+    "techStack": "Python checker (aiohttp) → state.json → Cloudflare Pages dashboard + Discord webhook",
+    "retailers": ["pokemon_center", "target", "amazon", "best_buy", "walmart", "gamestop", "costco", "sams_club", "barnes_noble", "tcgplayer", "box_lunch", "hottopic", "premium_bandai"],
+    "apiEndpoints": {
+      "/api/ping": "Health check (GET)",
+      "/api/lookup?zip=ZIP": "Target+BBD store inventory (GET)",
+      "/api/summary": "Stock overview from state.json (GET)",
+      "/api/proxy?url=URL": "Generic CORS proxy (GET)"
+    },
+    "envVars": {
+      "TARGET_API_KEY": "RedSky API key (set in Cloudflare Pages)",
+      "BESTBUY_API_KEY": "Best Buy Developer API key (not set yet)",
+      "DISCORD_WEBHOOK": "Discord webhook URL for notifications"
+    }
+  }
+}

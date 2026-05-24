@@ -1,0 +1,22 @@
+name: Validate Config
+
+on:
+  push:
+    paths:
+      - 'config.yaml'
+      - 'checker.py'
+      - 'retailers/**'
+  pull_request:
+    paths:
+      - 'config.yaml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pyyaml aiohttp beautifulsoup4
+      - run: python validate_config.py
