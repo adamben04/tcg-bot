@@ -6,381 +6,330 @@
 <title>In-Store Inventory — TCG Stock Monitor</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,200;14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #070708;
-    --surface: #111113;
-    --surface-hover: #18181b;
-    --border: rgba(255, 255, 255, 0.06);
-    --border-focus: rgba(255, 255, 255, 0.18);
-    --text: #e4e4e7;
-    --text-muted: #a1a1aa;
-    --text-dim: #52525b;
-    --green: #22c55e;
-    --green-bg: rgba(34, 197, 94, 0.08);
+    --bg: #050505;
+    --surface: #0c0c0c;
+    --surface-hover: #141414;
+    --text: #e8e8e8;
+    --text-secondary: #888;
+    --text-tertiary: #484848;
+    --green: #22c65e;
+    --green-bg: rgba(34, 198, 94, 0.07);
     --red: #ef4444;
-    --red-bg: rgba(239, 68, 68, 0.08);
-    --amber: #f59e0b;
-    --amber-bg: rgba(245, 158, 11, 0.08);
-    --blue: #60a5fa;
+    --red-bg: rgba(239, 68, 68, 0.07);
+    --amber: #eab308;
+    --amber-bg: rgba(234, 179, 8, 0.07);
     --ease: cubic-bezier(0.16, 1, 0.3, 1);
-    --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
-    --radius: 10px;
-    --radius-sm: 6px;
+    --radius: 6px;
     --font: 'Inter', system-ui, -apple-system, sans-serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
   body {
     font-family: var(--font);
-    font-size: 14px;
     font-weight: 400;
+    font-size: 14px;
     line-height: 1.6;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.012em;
     background: var(--bg);
     color: var(--text);
-    padding: 48px 24px;
-    max-width: 1100px;
+    padding: 80px 32px 120px;
+    max-width: 800px;
     margin: 0 auto;
     min-height: 100vh;
   }
-  a { color: var(--text-muted); text-decoration: none; transition: color 0.2s var(--ease); }
+  a { color: var(--text-secondary); text-decoration: none; transition: color 0.2s var(--ease); }
   a:hover { color: var(--text); }
 
-  .top-bar {
+  .top {
+    margin-bottom: 96px;
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 48px;
+    gap: 24px;
   }
-  .back-link {
+  .top a {
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 400;
     letter-spacing: -0.01em;
-    color: var(--text-dim);
-    padding: 6px 12px;
-    border-radius: var(--radius-sm);
-    transition: all 0.2s var(--ease);
+    color: var(--text-tertiary);
+    transition: color 0.2s var(--ease);
   }
-  .back-link:hover {
-    color: var(--text);
-    background: var(--surface);
-  }
+  .top a:hover { color: var(--text-secondary); }
 
   h1 {
-    font-size: 28px;
-    font-weight: 600;
-    letter-spacing: -0.03em;
-    line-height: 1.15;
-    margin-bottom: 6px;
+    font-size: 40px;
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    line-height: 1.05;
+    margin-bottom: 16px;
   }
   .subtitle {
     font-size: 14px;
     font-weight: 400;
     letter-spacing: -0.01em;
-    color: var(--text-muted);
-    margin-bottom: 40px;
+    line-height: 1.5;
+    color: var(--text-tertiary);
+    margin-bottom: 48px;
+    max-width: 400px;
   }
 
-  .search-section {
+  .input-row {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 40px;
-    padding: 6px;
-    padding-left: 16px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 60px;
-    max-width: 480px;
-    transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
+    gap: 12px;
+    margin-bottom: 8px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--text-tertiary);
+    transition: border-color 0.25s var(--ease);
   }
-  .search-section:focus-within {
-    border-color: var(--border-focus);
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.4);
+  .input-row:focus-within {
+    border-bottom-color: var(--text-secondary);
   }
-  .search-section input[type="text"] {
+  .input-row input {
     flex: 1;
     background: transparent;
     border: none;
-    padding: 10px 4px;
+    padding: 4px 0;
     color: var(--text);
     font-family: var(--font);
-    font-size: 14px;
-    font-weight: 400;
-    letter-spacing: -0.01em;
+    font-size: 20px;
+    font-weight: 300;
+    letter-spacing: -0.02em;
     outline: none;
     min-width: 0;
   }
-  .search-section input[type="text"]::placeholder {
-    color: var(--text-dim);
-    font-weight: 400;
+  .input-row input::placeholder {
+    color: var(--text-tertiary);
+    font-weight: 300;
   }
-  .search-section button {
-    background: var(--text);
+  .input-row button {
+    background: none;
     border: none;
-    border-radius: 60px;
-    padding: 8px 18px;
-    color: var(--bg);
+    padding: 4px 0;
+    color: var(--text-tertiary);
     font-family: var(--font);
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: -0.01em;
     cursor: pointer;
-    transition: all 0.2s var(--ease);
+    transition: color 0.2s var(--ease);
     flex-shrink: 0;
+    opacity: 0;
+    pointer-events: none;
   }
-  .search-section button:hover {
-    background: #fafafa;
-    transform: scale(1.02);
+  .input-row.has-value button {
+    opacity: 1;
+    pointer-events: auto;
   }
-  .search-section button:active {
-    transform: scale(0.97);
-  }
-  .search-section button:disabled {
-    opacity: 0.35;
-    cursor: not-allowed;
-    transform: none;
-  }
-  #statusLabel {
-    font-size: 13px;
+  .input-row button:hover { color: var(--text); }
+  .input-row button:disabled { display: none; }
+  .input-hint {
+    font-size: 12px;
     font-weight: 400;
+    color: var(--text-tertiary);
     letter-spacing: -0.01em;
-    color: var(--text-dim);
-    margin-left: auto;
-    white-space: nowrap;
+    margin-bottom: 40px;
+    min-height: 18px;
+    transition: color 0.2s var(--ease);
   }
+  .input-hint.active { color: var(--text-secondary); }
 
   .error-box {
     display: none;
-    padding: 12px 18px;
-    margin-bottom: 24px;
-    background: var(--red-bg);
-    border: 1px solid rgba(239, 68, 68, 0.15);
-    border-radius: var(--radius);
-    color: #fca5a5;
+    padding: 10px 0;
+    margin-bottom: 32px;
+    color: var(--red);
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 400;
     letter-spacing: -0.01em;
     line-height: 1.5;
   }
-  .loading, .no-results {
-    display: none;
-    text-align: center;
-    padding: 64px 24px;
-    color: var(--text-dim);
-    font-size: 14px;
-    letter-spacing: -0.01em;
-  }
-  .loading {
-    position: relative;
-  }
-  .loading::after {
-    content: '';
-    display: block;
-    width: 20px;
-    height: 20px;
-    margin: 16px auto 0;
-    border: 2px solid var(--border);
-    border-top-color: var(--text);
-    border-radius: 50%;
-    animation: spin 0.8s var(--ease) infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
 
-  .summary {
+  .loading {
+    display: none;
+    margin: 48px 0;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    color: var(--text-tertiary);
+  }
+
+  .no-results {
+    display: none;
+    margin: 48px 0;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    color: var(--text-tertiary);
+  }
+
+  .summary-bar {
     display: flex;
     align-items: center;
     gap: 24px;
-    margin-bottom: 36px;
-    padding: 0 2px;
+    margin-bottom: 48px;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    color: var(--text-secondary);
   }
-  .summary-item {
-    display: flex;
-    align-items: baseline;
-    gap: 6px;
-  }
-  .summary-item label {
-    font-size: 12px;
+  .summary-bar value {
+    font-size: 20px;
     font-weight: 500;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    color: var(--text-dim);
-  }
-  .summary-item value {
-    font-size: 18px;
-    font-weight: 600;
     letter-spacing: -0.02em;
     color: var(--text);
+    margin-left: 4px;
   }
-  .summary-item + .summary-item::before {
-    content: '';
-    display: block;
-    width: 3px;
-    height: 3px;
-    border-radius: 50%;
-    background: var(--text-dim);
-    margin-right: 4px;
-  }
+  .summary-bar .sep { color: var(--text-tertiary); }
 
   .section {
-    margin-bottom: 40px;
-    animation: fadeUp 0.4s var(--ease-smooth) both;
+    margin-bottom: 48px;
+    animation: fadeIn 0.5s var(--ease) both;
   }
-  .section:nth-child(2) { animation-delay: 0.05s; }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(8px); }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
-  .section-header {
+  .section-head {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     gap: 12px;
-    margin-bottom: 20px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
   }
-  .section-header h2 {
-    font-size: 18px;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    line-height: 1.3;
-  }
-  .section-header .count {
+  .section-head h2 {
     font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+  .section-head .count {
+    font-size: 12px;
     font-weight: 400;
-    color: var(--text-dim);
+    color: var(--text-tertiary);
     letter-spacing: -0.01em;
   }
-
-  .product-group {
-    margin-bottom: 28px;
+  .section-head .line {
+    flex: 1;
+    height: 1px;
+    background: var(--text-tertiary);
+    opacity: 0.3;
   }
-  .product-group:last-child { margin-bottom: 0; }
-  .product-name {
-    font-size: 15px;
-    font-weight: 500;
+
+  .product {
+    margin-bottom: 32px;
+  }
+  .product:last-child { margin-bottom: 0; }
+  .product-header {
+    font-size: 14px;
+    font-weight: 400;
     letter-spacing: -0.01em;
     color: var(--text);
     margin-bottom: 10px;
-    padding-left: 2px;
   }
-  .product-name .error-inline {
-    color: #fca5a5;
+  .product-header .error-inline {
+    color: var(--text-tertiary);
     font-weight: 400;
-    font-size: 13px;
   }
 
-  .store-tiles {
+  .stores {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
+    column-gap: 4px;
+    row-gap: 4px;
   }
-  .store-tile {
+  .store {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 8px 12px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
+    gap: 5px;
+    padding: 4px 8px;
+    border-radius: var(--radius);
     font-size: 13px;
     font-weight: 400;
     letter-spacing: -0.01em;
-    color: var(--text-muted);
-    transition: all 0.2s var(--ease);
+    color: var(--text-secondary);
     cursor: default;
-    white-space: nowrap;
+    transition: background 0.15s var(--ease);
   }
-  .store-tile:hover {
-    background: var(--surface-hover);
-    border-color: rgba(255,255,255,0.1);
-    transform: translateY(-1px);
-  }
-  .store-tile .tile-id {
-    font-weight: 500;
+  .store:hover { background: var(--surface-hover); }
+  .store .id {
     color: var(--text);
+    font-weight: 450;
   }
-  .store-tile .tile-city {
-    color: var(--text-dim);
+  .store .city {
+    color: var(--text-tertiary);
   }
-  .store-tile .tile-dist {
-    color: var(--text-dim);
+  .store .dist {
+    color: var(--text-tertiary);
     font-size: 12px;
   }
-  .store-tile .tile-qty {
-    font-weight: 600;
+  .store .qty {
+    font-weight: 500;
     font-variant-numeric: tabular-nums;
-    min-width: 20px;
-    text-align: center;
-    padding: 1px 6px;
-    border-radius: 4px;
     font-size: 12px;
   }
-  .store-tile .tile-dot {
-    width: 6px;
-    height: 6px;
+  .store .qty.zero { color: var(--red); }
+  .store .qty.ok { color: var(--green); }
+  .store .dot {
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     flex-shrink: 0;
+    transition: box-shadow 0.2s var(--ease);
   }
-  .tile-qty.qty-ok { color: var(--green); background: var(--green-bg); }
-  .tile-qty.qty-zero { color: var(--red); background: var(--red-bg); }
-  .tile-dot.dot-in-stock { background: var(--green); box-shadow: 0 0 6px rgba(34,197,94,0.3); }
-  .tile-dot.dot-out-of-stock { background: var(--red); }
-  .tile-dot.dot-low-stock { background: var(--amber); }
-  .tile-dot.dot-unknown { background: var(--text-dim); }
-
-  .status-badge {
-    display: inline-block;
-    padding: 1px 8px;
-    border-radius: 60px;
+  .dot.green { background: var(--green); box-shadow: 0 0 5px rgba(34,198,94,0.25); }
+  .dot.red { background: var(--red); }
+  .dot.amber { background: var(--amber); }
+  .dot.gray { background: var(--text-tertiary); }
+  .store .label {
     font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.01em;
+    font-weight: 500;
+    padding: 0 5px;
+    border-radius: 3px;
   }
-  .status-in-stock { background: var(--green-bg); color: var(--green); }
-  .status-out-of-stock { background: var(--red-bg); color: var(--red); }
-  .status-low-stock { background: var(--amber-bg); color: var(--amber); }
-  .status-unknown { background: var(--surface-hover); color: var(--text-dim); }
+  .store .label.green { color: var(--green); background: var(--green-bg); }
+  .store .label.red { color: var(--red); background: var(--red-bg); }
+  .store .label.amber { color: var(--amber); background: var(--amber-bg); }
+  .store .label.gray { color: var(--text-tertiary); background: transparent; }
 
-  .empty-message {
+  .empty-msg {
     font-size: 13px;
-    color: var(--text-dim);
-    padding: 4px 2px;
+    font-weight: 400;
+    color: var(--text-tertiary);
     letter-spacing: -0.01em;
   }
 
   @media (max-width: 640px) {
-    body { padding: 28px 16px; }
-    h1 { font-size: 24px; }
-    .search-section { max-width: 100%; padding-left: 14px; }
-    #statusLabel { display: none; }
-    .summary { gap: 16px; flex-wrap: wrap; }
-    .summary-item value { font-size: 16px; }
-    .store-tile { font-size: 12px; padding: 6px 10px; }
+    body { padding: 48px 20px 80px; }
+    h1 { font-size: 28px; }
+    .top { margin-bottom: 64px; }
+    .input-row input { font-size: 17px; }
+    .summary-bar { flex-wrap: wrap; gap: 16px; }
+    .summary-bar value { font-size: 17px; }
   }
 </style>
 </head>
 <body>
 
-<div class="top-bar">
-  <a class="back-link" href="index.html">&larr; Dashboard</a>
+<div class="top">
+  <a href="index.html">Dashboard</a>
 </div>
-<h1>In-Store Inventory</h1>
-<p class="subtitle">Check stock at nearby Target &amp; Best Buy stores by ZIP code</p>
 
-<div class="search-section">
-  <input type="text" id="zipInput" placeholder="ZIP code" maxlength="5" inputmode="numeric" pattern="[0-9]*">
+<h1>In-Store<br>Inventory</h1>
+<p class="subtitle">Check real-time stock at nearby Target and Best Buy stores</p>
+
+<div class="input-row" id="inputRow">
+  <input type="text" id="zipInput" placeholder="Enter ZIP code" maxlength="5" inputmode="numeric" pattern="[0-9]*" autocomplete="postal-code">
   <button id="searchBtn">Search</button>
-  <label id="statusLabel">Enter a ZIP to search</label>
 </div>
+<div class="input-hint" id="inputHint">Type a 5-digit ZIP, then press Enter</div>
 
 <div class="error-box" id="errorBox"></div>
-<div class="loading" id="loading">Searching Target &amp; Best Buy stores</div>
-<div class="no-results" id="noResults">No stores found near this ZIP code.</div>
+<div class="loading" id="loading">Searching nearby stores…</div>
+<div class="no-results" id="noResults">No stores found near this ZIP</div>
 
 <div id="results"></div>
 
@@ -389,9 +338,10 @@ const API_BASE = window.location.origin.startsWith('http://localhost') || window
   ? ''
   : '/api';
 
+const inputRow = document.getElementById('inputRow');
 const searchBtn = document.getElementById('searchBtn');
 const zipInput = document.getElementById('zipInput');
-const statusLabel = document.getElementById('statusLabel');
+const inputHint = document.getElementById('inputHint');
 const errorBox = document.getElementById('errorBox');
 const loading = document.getElementById('loading');
 const noResults = document.getElementById('noResults');
@@ -399,6 +349,7 @@ const resultsDiv = document.getElementById('results');
 
 zipInput.addEventListener('input', () => {
   zipInput.value = zipInput.value.replace(/\D/g, '').slice(0, 5);
+  inputRow.classList.toggle('has-value', zipInput.value.length > 0);
 });
 
 zipInput.addEventListener('keydown', (e) => {
@@ -410,15 +361,17 @@ searchBtn.addEventListener('click', search);
 async function search() {
   const zip = zipInput.value.trim();
   if (!/^\d{5}$/.test(zip)) {
-    showError('Enter a valid 5-digit ZIP code');
+    inputHint.textContent = 'Enter a valid 5-digit ZIP code';
+    inputHint.style.color = '#ef4444';
     return;
   }
 
+  inputHint.style.color = '';
   errorBox.style.display = 'none';
   loading.style.display = 'block';
   noResults.style.display = 'none';
   resultsDiv.innerHTML = '';
-  statusLabel.textContent = 'Searching...';
+  inputHint.textContent = 'Searching…';
   searchBtn.disabled = true;
 
   try {
@@ -427,7 +380,7 @@ async function search() {
     const data = await resp.json();
     render(data);
   } catch (err) {
-    showError(`Search failed: ${err.message}`);
+    showError(err.message);
   } finally {
     loading.style.display = 'none';
     searchBtn.disabled = false;
@@ -439,6 +392,7 @@ function showError(msg) {
   errorBox.style.display = 'block';
   loading.style.display = 'none';
   noResults.style.display = 'none';
+  inputHint.textContent = '';
 }
 
 function render(data) {
@@ -447,105 +401,110 @@ function render(data) {
 
   if (!hasTarget && !hasBestBuy) {
     noResults.style.display = 'block';
-    statusLabel.textContent = 'No store data returned';
+    inputHint.textContent = '';
     return;
   }
 
-  statusLabel.textContent = `ZIP ${data.zip}`;
+  inputHint.textContent = `${data.zip} — ${data.target.reduce((a, p) => a + (p.stores || []).length, 0) + data.bestbuy.reduce((a, p) => a + (p.stores || []).length, 0)} nearby stores`;
 
-  let totalInStock = 0;
   let totalStores = 0;
-
+  let totalInStock = 0;
   let html = '';
 
   if (hasTarget) {
-    let targetInStock = 0;
-    let targetStores = 0;
-    let productRows = '';
+    let tInStock = 0;
+    let tStores = 0;
+    let rows = '';
     for (const prod of data.target) {
       if (prod.error) {
-        productRows += `<div class="product-group"><div class="product-name">${prod.name || prod.tcin} <span class="error-inline">(${prod.error})</span></div></div>`;
+        rows += `<div class="product"><div class="product-header">${prod.name || prod.tcin} <span class="error-inline">— ${prod.error}</span></div></div>`;
         continue;
       }
       const stores = prod.stores || [];
-      targetStores += stores.length;
-      targetInStock += stores.filter(s => s.quantity > 0).length;
-      productRows += `<div class="product-group"><div class="product-name">${escHtml(prod.name)}</div>`;
+      tStores += stores.length;
+      tInStock += stores.filter(s => s.quantity > 0).length;
+      rows += `<div class="product"><div class="product-header">${escHtml(prod.name)}</div>`;
       if (stores.length === 0) {
-        productRows += `<div class="empty-message">No nearby stores</div>`;
+        rows += `<div class="empty-msg">No nearby stores</div>`;
       } else {
-        productRows += `<div class="store-tiles">`;
+        rows += `<div class="stores">`;
         for (const s of stores) {
-          const qtyClass = s.quantity > 0 ? 'qty-ok' : 'qty-zero';
-          const dotClass = s.quantity > 0 ? 'dot-in-stock' : 'dot-out-of-stock';
-          productRows += `<div class="store-tile">
-            <span class="tile-dot ${dotClass}"></span>
-            <span class="tile-id">#${escHtml(s.store_id)}</span>
-            <span class="tile-city">${escHtml(s.city)}</span>
-            <span class="tile-dist">${s.distance ?? '-'} mi</span>
-            <span class="tile-qty ${qtyClass}">${s.quantity}</span>
+          const qCls = s.quantity > 0 ? 'ok' : 'zero';
+          const dotCls = s.quantity > 0 ? 'green' : 'red';
+          rows += `<div class="store">
+            <span class="dot ${dotCls}"></span>
+            <span class="id">#${escHtml(s.store_id)}</span>
+            <span class="city">${escHtml(s.city)}</span>
+            <span class="dist">${s.distance ?? '-'} mi</span>
+            <span class="qty ${qCls}">${s.quantity}</span>
           </div>`;
         }
-        productRows += `</div>`;
+        rows += `</div>`;
       }
-      productRows += `</div>`;
+      rows += `</div>`;
     }
-    totalInStock += targetInStock;
-    totalStores += targetStores;
+    totalInStock += tInStock;
+    totalStores += tStores;
     html += `<div class="section">
-      <div class="section-header">
+      <div class="section-head">
         <h2>Target</h2>
-        <span class="count">${targetInStock} in-stock &middot; ${targetStores} stores</span>
-      </div>${productRows}
+        <span class="count">${tInStock} in stock · ${tStores} stores</span>
+        <span class="line"></span>
+      </div>${rows}
     </div>`;
   }
 
   if (hasBestBuy) {
-    let bbInStock = 0;
-    let bbStores = 0;
-    let productRows = '';
+    let bInStock = 0;
+    let bStores = 0;
+    let rows = '';
     for (const prod of data.bestbuy) {
       if (prod.error) {
-        productRows += `<div class="product-group"><div class="product-name">${prod.name || prod.sku} <span class="error-inline">(${prod.error})</span></div></div>`;
+        rows += `<div class="product"><div class="product-header">${prod.name || prod.sku} <span class="error-inline">— ${prod.error}</span></div></div>`;
         continue;
       }
       const stores = prod.stores || [];
-      bbStores += stores.length;
-      bbInStock += stores.filter(s => s.lowStock !== true).length;
-      productRows += `<div class="product-group"><div class="product-name">${escHtml(prod.name)}</div>`;
+      bStores += stores.length;
+      bInStock += stores.filter(s => s.lowStock !== true).length;
+      rows += `<div class="product"><div class="product-header">${escHtml(prod.name)}</div>`;
       if (stores.length === 0) {
-        productRows += `<div class="empty-message">No nearby stores</div>`;
+        rows += `<div class="empty-msg">No nearby stores</div>`;
       } else {
-        productRows += `<div class="store-tiles">`;
+        rows += `<div class="stores">`;
         for (const s of stores) {
-          const dotClass = s.lowStock ? 'dot-low-stock' : s.status === 'IN_STOCK' ? 'dot-in-stock' : 'dot-unknown';
-          productRows += `<div class="store-tile">
-            <span class="tile-dot ${dotClass}"></span>
-            <span class="tile-id">${escHtml(s.name || `BB #${s.store_id}`)}</span>
-            <span class="tile-city">${escHtml(s.city)}</span>
-            <span class="tile-dist">${s.distance ?? '-'} mi</span>
-            <span class="status-badge ${s.lowStock ? 'status-low-stock' : s.status === 'IN_STOCK' ? 'status-in-stock' : 'status-unknown'}">${s.lowStock ? 'LOW' : s.status === 'IN_STOCK' ? 'IN' : '—'}</span>
+          const dotCls = s.lowStock ? 'amber' : s.status === 'IN_STOCK' ? 'green' : 'gray';
+          const lblCls = s.lowStock ? 'amber' : s.status === 'IN_STOCK' ? 'green' : 'gray';
+          const lblTxt = s.lowStock ? 'Low' : s.status === 'IN_STOCK' ? 'In' : '—';
+          rows += `<div class="store">
+            <span class="dot ${dotCls}"></span>
+            <span class="id">${escHtml(s.name || `BB #${s.store_id}`)}</span>
+            <span class="city">${escHtml(s.city)}</span>
+            <span class="dist">${s.distance ?? '-'} mi</span>
+            <span class="label ${lblCls}">${lblTxt}</span>
           </div>`;
         }
-        productRows += `</div>`;
+        rows += `</div>`;
       }
-      productRows += `</div>`;
+      rows += `</div>`;
     }
-    totalInStock += bbInStock;
-    totalStores += bbStores;
+    totalInStock += bInStock;
+    totalStores += bStores;
     html += `<div class="section">
-      <div class="section-header">
+      <div class="section-head">
         <h2>Best Buy</h2>
-        <span class="count">${bbInStock} available &middot; ${bbStores} stores</span>
-      </div>${productRows}
+        <span class="count">${bInStock} available · ${bStores} stores</span>
+        <span class="line"></span>
+      </div>${rows}
     </div>`;
   }
 
+  const totalCount = data.target.reduce((a, p) => a + (p.stores || []).length, 0) + data.bestbuy.reduce((a, p) => a + (p.stores || []).length, 0);
+
   resultsDiv.innerHTML = `
-    <div class="summary">
-      <div class="summary-item"><label>ZIP</label><value>${escHtml(data.zip)}</value></div>
-      <div class="summary-item"><label>Stores</label><value>${totalStores}</value></div>
-      <div class="summary-item"><label>In Stock</label><value>${totalInStock}</value></div>
+    <div class="summary-bar">
+      <span>Stores <value>${totalCount}</value></span>
+      <span class="sep">·</span>
+      <span>In stock <value>${totalInStock}</value></span>
     </div>
     ${html}
   `;
