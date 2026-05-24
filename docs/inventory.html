@@ -374,13 +374,14 @@ async function search() {
   inputHint.textContent = 'Searching…';
   searchBtn.disabled = true;
 
+  const url = `${API_BASE}/lookup?zip=${zip}`;
   try {
-    const resp = await fetch(`${API_BASE}/lookup?zip=${zip}`);
+    const resp = await fetch(url);
     if (!resp.ok) throw new Error(`Server error ${resp.status}`);
     const data = await resp.json();
     render(data);
   } catch (err) {
-    showError(err.message);
+    showError(`${err.message} (${url})`);
   } finally {
     loading.style.display = 'none';
     searchBtn.disabled = false;

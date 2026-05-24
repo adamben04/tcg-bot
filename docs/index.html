@@ -4,43 +4,193 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TCG Stock Monitor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
 <style>
+  :root {
+    --bg: #050505;
+    --surface: #0c0c0c;
+    --surface-hover: #141414;
+    --text: #e8e8e8;
+    --text-secondary: #888;
+    --text-tertiary: #484848;
+    --green: #22c65e;
+    --red: #ef4444;
+    --amber: #eab308;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --font: 'Inter', system-ui, -apple-system, sans-serif;
+  }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; background: #0d1117; color: #c9d1d9; padding: 20px; }
-  h1 { font-size: 1.5rem; margin-bottom: 4px; }
-  .subtitle { color: #8b949e; font-size: .85rem; margin-bottom: 20px; }
-  .stats { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
-  .stat { background: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 12px 18px; min-width: 120px; }
-  .stat label { display: block; font-size: .75rem; color: #8b949e; text-transform: uppercase; letter-spacing: .5px; }
-  .stat value { font-size: 1.4rem; font-weight: 600; }
-  .products { display: grid; gap: 8px; }
-  .product { background: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 12px 16px; display: flex; align-items: center; gap: 12px; }
-  .status-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-  .in-stock .status-dot { background: #3fb950; box-shadow: 0 0 6px #3fb95088; }
-  .out-of-stock .status-dot { background: #f85149; }
-  .unknown .status-dot { background: #8b949e; }
-  .product .info { flex: 1; min-width: 0; }
-  .product .name { font-weight: 500; font-size: .9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .product .meta { font-size: .8rem; color: #8b949e; margin-top: 2px; }
-  .product .price { font-size: .9rem; font-weight: 500; flex-shrink: 0; }
-  .in-stock .price { color: #3fb950; }
-  .product .retailer { font-size: .7rem; background: #21262d; padding: 2px 8px; border-radius: 10px; color: #8b949e; flex-shrink: 0; }
-  .error { color: #f85149; text-align: center; padding: 40px; }
-  .loading { color: #8b949e; text-align: center; padding: 40px; }
-  .last-updated { text-align: right; font-size: .75rem; color: #484f58; margin-top: 16px; }
-  a { color: #58a6ff; text-decoration: none; }
-  a:hover { text-decoration: underline; }
+  html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  body {
+    font-family: var(--font);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.6;
+    letter-spacing: -0.012em;
+    background: var(--bg);
+    color: var(--text);
+    padding: 80px 32px 120px;
+    max-width: 800px;
+    margin: 0 auto;
+    min-height: 100vh;
+  }
+  a { color: var(--text-secondary); text-decoration: none; transition: color 0.2s var(--ease); }
+  a:hover { color: var(--text); }
+
+  .top {
+    margin-bottom: 96px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    justify-content: space-between;
+  }
+  .top-left { display: flex; align-items: center; gap: 24px; }
+
+  h1 {
+    font-size: 40px;
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    line-height: 1.05;
+    margin-bottom: 8px;
+  }
+  .hed {
+    margin-bottom: 56px;
+  }
+  .hed .sub {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    color: var(--text-tertiary);
+  }
+
+  .stat-row {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    margin-bottom: 56px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .stat-item {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .stat-item label {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+  .stat-item value {
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+
+  .list { }
+  .list-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 8px;
+    margin: 0 -8px;
+    border-radius: 6px;
+    transition: background 0.15s var(--ease);
+    cursor: default;
+  }
+  .list-item:hover { background: var(--surface-hover); }
+  .list-item .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .list-item .dot.stock { background: var(--green); box-shadow: 0 0 5px rgba(34,198,94,0.25); }
+  .list-item .dot.unknown { background: var(--amber); }
+  .list-item .dot.oos { background: var(--red); }
+  .list-item .name {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .list-item .price {
+    font-size: 13px;
+    font-weight: 450;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+    min-width: 48px;
+    text-align: right;
+  }
+  .list-item .price.green { color: var(--green); }
+  .list-item .meta {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--text-tertiary);
+    flex-shrink: 0;
+    min-width: 60px;
+    text-align: right;
+  }
+  .list-item .tag {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-tertiary);
+    padding: 0 6px;
+    flex-shrink: 0;
+  }
+
+  .error { color: var(--red); text-align: center; padding: 40px 0; font-size: 13px; }
+  .loading { color: var(--text-tertiary); text-align: center; padding: 40px 0; font-size: 13px; }
+  .foot {
+    margin-top: 48px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .foot .updated { font-size: 12px; color: var(--text-tertiary); }
+
+  @media (max-width: 640px) {
+    body { padding: 48px 20px 80px; }
+    h1 { font-size: 28px; }
+    .top { margin-bottom: 64px; }
+    .stat-row { gap: 20px; flex-wrap: wrap; }
+    .stat-item value { font-size: 18px; }
+  }
 </style>
 </head>
 <body>
-<h1>TCG Stock Monitor</h1>
-<p class="subtitle">Tracking Pokémon &amp; One Piece TCG at 6 retailers &middot; <a href="inventory.html">In-Store Lookup</a></p>
 
-<div class="stats" id="stats"></div>
-<div class="products" id="products">
-  <div class="loading">Loading...</div>
+<div class="top">
+  <div class="top-left">
+    <a href="inventory.html">In-Store</a>
+  </div>
 </div>
-<div class="last-updated" id="updated"></div>
+
+<div class="hed">
+  <h1>Stock Monitor</h1>
+  <div class="sub">Pokémon &amp; One Piece TCG at 6 retailers</div>
+</div>
+
+<div class="stat-row" id="stats"></div>
+<div id="products">
+  <div class="loading">Loading…</div>
+</div>
+<div class="foot">
+  <div class="updated" id="updated"></div>
+</div>
 
 <script>
 const REPO = 'adamben04/tcg-bot';
@@ -52,19 +202,13 @@ function label(status) {
   return 'UNKNOWN';
 }
 
-function retailerIcon(r) {
-  const icons = {
-    pokemon_center: 'PC',
-    target: 'Target',
-    best_buy: 'BB',
-    gamestop: 'GS',
-    walmart: 'Walmart',
-    costco: 'Costco',
-    sams_club: "Sam's",
-    barnes_noble: 'B&N',
-    tcgplayer: 'TCGP',
+function retailerTag(r) {
+  const map = {
+    pokemon_center: 'PC', target: 'Target', best_buy: 'BB',
+    gamestop: 'GS', walmart: 'Walmart', costco: 'Costco',
+    sams_club: "Sam's", barnes_noble: 'B&N', tcgplayer: 'TCGP',
   };
-  return icons[r] || r;
+  return map[r] || r;
 }
 
 async function load() {
@@ -82,36 +226,55 @@ async function load() {
 function render(state) {
   const stats = state.stats || {};
   const prods = state.products || {};
+  const entries = Object.entries(prods);
+  const inStockCount = entries.filter(([, p]) => p.last_status === 'in_stock').length;
 
   document.getElementById('stats').innerHTML = `
-    <div class="stat"><label>Products</label><value>${Object.keys(prods).length}</value></div>
-    <div class="stat"><label>Total Checks</label><value>${stats.total_checks || 0}</value></div>
-    <div class="stat"><label>Notifications</label><value>${stats.notifications_sent || 0}</value></div>
-    <div class="stat"><label>In Stock</label><value>${Object.values(prods).filter(p => p.last_status === 'in_stock').length}</value></div>
+    <div class="stat-item"><label>Products</label><value>${entries.length}</value></div>
+    <div class="stat-item"><label>Checks</label><value>${stats.total_checks || 0}</value></div>
+    <div class="stat-item"><label>In Stock</label><value>${inStockCount}</value></div>
   `;
 
-  const sorted = Object.values(prods).sort((a, b) => {
+  const sorted = entries.sort((a, b) => {
     const o = { in_stock: 0, unknown: 1, out_of_stock: 2 };
-    return (o[a.last_status] || 3) - (o[b.last_status] || 3) || (a.name || '').localeCompare(b.name || '');
+    const sa = o[a[1].last_status] || 3;
+    const sb = o[b[1].last_status] || 3;
+    return sa - sb || (a[1].name || '').localeCompare(b[1].name || '');
   });
 
-  document.getElementById('products').innerHTML = sorted.map(p => {
+  document.getElementById('products').innerHTML = sorted.map(([, p]) => {
     const status = p.last_status || 'unknown';
+    const dotClass = status === 'in_stock' ? 'stock' : status === 'out_of_stock' ? 'oos' : 'unknown';
     const price = p.history && p.history.length > 0 ? p.history[p.history.length - 1].price : null;
-    const checked = p.last_checked ? new Date(p.last_checked).toLocaleString() : 'never';
-    const notified = p.last_notified ? new Date(p.last_notified).toLocaleString() : 'never';
-    return `<div class="product ${status}">
-      <span class="status-dot"></span>
-      <div class="info">
-        <div class="name" title="${p.name}">${p.name}</div>
-        <div class="meta">${label(status)} &middot; checked ${checked} &middot; notified ${notified}</div>
-      </div>
-      <span class="price">${price ? '$' + price : ''}</span>
+    const checked = p.last_checked ? formatDate(p.last_checked) : '';
+    const notified = p.last_notified ? 'notified ' + formatDate(p.last_notified) : '';
+    const priceHtml = price ? `<span class="price ${status === 'in_stock' ? 'green' : ''}">$${price}</span>` : '';
+    return `<div class="list-item">
+      <span class="dot ${dotClass}"></span>
+      <span class="name" title="${escHtml(p.name)}">${escHtml(p.name)}</span>
+      ${priceHtml}
+      <span class="meta">${checked}</span>
     </div>`;
   }).join('');
 
   document.getElementById('updated').textContent =
-    'Updated ' + new Date().toLocaleString();
+    'Last checked ' + new Date().toLocaleString();
+}
+
+function formatDate(s) {
+  const d = new Date(s);
+  const now = new Date();
+  const diffH = (now - d) / 3600000;
+  if (diffH < 1) return Math.round(diffH * 60) + 'm ago';
+  if (diffH < 24) return Math.round(diffH) + 'h ago';
+  return d.toLocaleDateString();
+}
+
+function escHtml(s) {
+  if (s == null) return '';
+  const d = document.createElement('div');
+  d.textContent = String(s);
+  return d.innerHTML;
 }
 
 load();
