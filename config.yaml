@@ -58,19 +58,34 @@ products:
     extra:
       tcin: "89432660"
 
-   # ── GameStop ────────────────────────────────────────────
-  - name: "Prismatic Evolutions ETB (GS)"
-    url: "https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-prismatic-evolutions-elite-trainer-box/20018505.html"
-    retailer: gamestop
+   # ── GameStop (blocked by Cloudflare — kept for when we add bypass) ──
+  # ── One Piece TCG (Target) ───────────────────────────────────
+  - name: "One Piece OP-15 Kami's Island Box (Target)"
+    url: "https://www.target.com/p/bandai-one-piece-tcg-adventure-on-kami-s-island-booster-box-op-15-eb-04-24-packs/-/A-1010548868"
+    retailer: target
+    extra:
+      tcin: "1010548868"
 
-  - name: "Surging Sparks Booster Box (GS)"
-    url: "https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-scarlet-and-violet-surging-sparks-booster-box-36-count/20015279.html"
-    retailer: gamestop
+  - name: "One Piece OP-14 Azure Sea Box (Target)"
+    url: "https://www.target.com/p/bandai-one-piece-tcg-the-azure-sea-s-seven-booster-box-op-14-24-packs/-/A-1008009274"
+    retailer: target
+    extra:
+      tcin: "1008009274"
 
-  - name: "Crown Zenith ETB (GS)"
-    url: "https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-crown-zenith-elite-trainer-box/20020097.html"
-    retailer: gamestop
+  - name: "One Piece OP-11 Fist of Divine Speed Box (Target)"
+    url: "https://www.target.com/p/bandai-one-piece-tcg-a-fist-of-divine-speed-booster-box-op-11-24-packs/-/A-1003688214"
+    retailer: target
+    extra:
+      tcin: "1003688214"
 
-  - name: "151 Mini Tin (GS)"
-    url: "https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-scarlet-and-violet-151-collection-mini-tin-styles-may-vary/20006086.html"
-    retailer: gamestop
+  - name: "One Piece OP-10 Royal Blood Box (Target)"
+    url: "https://www.target.com/p/bandai-one-piece-tcg-royal-blood-booster-box-op10-24-packs/-/A-1002658635"
+    retailer: target
+    extra:
+      tcin: "1002658635"
+
+  - name: "One Piece PRB-01 Premium Booster The Best (Target)"
+    url: "https://www.target.com/p/bandai-one-piece-tcg-premium-booster-booster-box-the-best-prb-01/-/A-1001561462"
+    retailer: target
+    extra:
+      tcin: "1001561462"
