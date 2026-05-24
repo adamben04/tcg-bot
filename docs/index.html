@@ -124,6 +124,13 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+  .list-item .name a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .list-item .name a:hover {
+    color: var(--text-secondary);
+  }
   .list-item .price {
     font-size: 13px;
     font-weight: 450;
@@ -249,9 +256,13 @@ function render(state) {
     const checked = p.last_checked ? formatDate(p.last_checked) : '';
     const notified = p.last_notified ? 'notified ' + formatDate(p.last_notified) : '';
     const priceHtml = price ? `<span class="price ${status === 'in_stock' ? 'green' : ''}">$${price}</span>` : '';
+    const link = p.url ? escHtml(p.url) : '';
+    const nameHtml = link ? `<a href="${link}" target="_blank" rel="noopener">${escHtml(p.name)}</a>` : escHtml(p.name);
+    const buttonHtml = (status === 'in_stock' && link) ? ` <a href="${link}" target="_blank" rel="noopener" style="font-size:11px;font-weight:500;color:var(--green);padding:2px 6px;border:1px solid rgba(34,198,94,0.2);border-radius:4px;flex-shrink:0;transition:all 0.15s cubic-bezier(0.16,1,0.3,1)">Buy</a>` : '';
     return `<div class="list-item">
       <span class="dot ${dotClass}"></span>
-      <span class="name" title="${escHtml(p.name)}">${escHtml(p.name)}</span>
+      <span class="name" title="${escHtml(p.name)}">${nameHtml}</span>
+      ${buttonHtml}
       ${priceHtml}
       <span class="meta">${checked}</span>
     </div>`;
