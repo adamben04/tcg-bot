@@ -176,3 +176,60 @@ products:
     url: "https://www.amazon.com/dp/B0DN98RVZM"
     retailer: amazon
     target_price: 29.99
+
+  - name: "Surging Sparks ETB (Amazon)"
+    url: "https://www.amazon.com/dp/B0DDYXQCZ4"
+    retailer: amazon
+    target_price: 49.99
+
+  - name: "Paldean Fates ETB (Amazon)"
+    url: "https://www.amazon.com/dp/B0CNFSY3Y3"
+    retailer: amazon
+    target_price: 49.99
+
+  - name: "Paldean Fates Booster Bundle (Amazon)"
+    url: "https://www.amazon.com/dp/B0CNFJ4QBP"
+    retailer: amazon
+    target_price: 29.99
+
+  - name: "151 Booster Bundle (Amazon)"
+    url: "https://www.amazon.com/dp/B0C8YBXDYQ"
+    retailer: amazon
+    target_price: 29.99
+
+  - name: "Twilight Masquerade ETB (Amazon)"
+    url: "https://www.amazon.com/dp/B0CXY99B6D"
+    retailer: amazon
+    target_price: 49.99
+
+  # ── Chaos Rising (released 2026-05-22) ────────────
+  - name: "Chaos Rising PC ETB"
+    url: "https://www.pokemoncenter.com/product/10-10399-112/pokemon-tcg-mega-evolution-chaos-rising-pokemon-center-elite-trainer-box"
+    retailer: pokemon_center
+    target_price: 69.99
+
+  - name: "Chaos Rising ETB (Target)"
+    url: "https://www.target.com/p/pok-233-mon-trading-card-game-mega-evolution-chaos-rising-elite-trainer-box/-/A-95267143"
+    retailer: target
+    target_price: 59.99
+    check_mode: any
+    extra:
+      tcin: "95267143"
+
+  - name: "Chaos Rising Booster Bundle (Target)"
+    url: "https://www.target.com/p/pok-233-mon-trading-card-game-mega-evolution-chaos-rising-booster-bundle/-/A-95298172"
+    retailer: target
+    target_price: 29.99
+    check_mode: any
+    extra:
+      tcin: "95298172"
+
+  - name: "Chaos Rising ETB (Amazon)"
+    url: "https://www.amazon.com/dp/B0GR6N18F6"
+    retailer: amazon
+    target_price: 49.99
+
+  - name: "Chaos Rising ETB (Best Buy)"
+    url: "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-chaos-rising-elite-trainer-box/JJG2TL34RT"
+    retailer: best_buy
+    target_price: 49.99

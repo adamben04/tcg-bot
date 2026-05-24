@@ -10,6 +10,12 @@ try:
 except ImportError:
     HAS_CURL = False
 
+try:
+    from cloakbrowser import launch_async
+    HAS_CLOAK = True
+except ImportError:
+    HAS_CLOAK = False
+
 BLOCK_MARKERS = [
     'incapsula', 'just a moment', 'cf-ray', 'cf-challenge',
     'attention required', 'cloudflare', '403 forbidden',
@@ -52,7 +58,7 @@ class RetailerChecker:
 
     async def _fetch_bypass(self, url, versions=None):
         if not HAS_CURL:
-            return None
+            return await self._fetch_bypass_cloak(url)
         if versions is None:
             versions = IMPRESONATE_VERSIONS
         last_exc = None
@@ -67,6 +73,21 @@ class RetailerChecker:
             except Exception as exc:
                 last_exc = exc
                 continue
+        return await self._fetch_bypass_cloak(url)
+
+    async def _fetch_bypass_cloak(self, url):
+        if not HAS_CLOAK:
+            return None
+        try:
+            browser = await launch_async()
+            page = await browser.new_page()
+            await page.goto(url, wait_until='networkidle', timeout=30000)
+            content = await page.content()
+            await browser.close()
+            if not self._is_blocked(content):
+                return content
+        except Exception:
+            pass
         return None
 
     def _is_blocked(self, text):
