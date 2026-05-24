@@ -127,3 +127,31 @@ products:
     url: "https://www.walmart.com/ip/Bandai-One-Piece-Card-Game-Premium-Booster-Box-PRB-01-THE-BEST/8166567581"
     retailer: walmart
     target_price: 99.99
+
+  # ── Costco (may be blocked by Akamai) ────────────────────
+  - name: "Charizard ex Super-Premium Collection (Costco)"
+    url: "https://www.costco.com/p/-/pokmon-tcg-charizard-ex-super-premium-collection/4000313298"
+    retailer: costco
+    target_price: 99.99
+
+  - name: "Evolving Skies ETB + Vaporeon Tin (Costco)"
+    url: "https://www.costco.com/pok%C3%A9mon-evolving-skies-elite-trainer-box-%2B-vaporeon-window-tin.product.100983804.html"
+    retailer: costco
+    target_price: 99.99
+
+  # ── Sam's Club (requires membership) ─────────────────────
+  - name: "Prismatic Evolutions Surprise Box Bundle (Sam's)"
+    url: "https://www.samsclub.com/ip/pokemon-surprise-box-booster-bundle/18933156288"
+    retailer: sams_club
+    target_price: 39.98
+
+  # ── Barnes & Noble ───────────────────────────────────────
+  - name: "Prismatic Evolutions Surprise Box (B&N)"
+    url: "https://www.barnesandnoble.com/w/pokemon-scarlet-violet-s85-prismatic-evolutions-surprise-box-pokemon/1146599417"
+    retailer: barnes_noble
+    target_price: 22.99
+
+  - name: "Iono's Bellibolt Premium Collection (B&N)"
+    url: "https://www.barnesandnoble.com/w/pokemon-ionos-bellibolt-premium-coll-ex-box-pokemon/1147265179"
+    retailer: barnes_noble
+    target_price: 39.99

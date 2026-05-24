@@ -16,6 +16,9 @@ from retailers.best_buy import BestBuyChecker
 from retailers.gamestop import GameStopChecker
 from retailers.walmart import WalmartChecker
 from retailers.tcgplayer import TCGPlayerChecker
+from retailers.costco import CostcoChecker
+from retailers.sams_club import SamsClubChecker
+from retailers.barnes_noble import BarnesNobleChecker
 from notifier import send_notifications
 
 CONFIG_PATH = 'config.yaml'
@@ -28,6 +31,9 @@ RETAILER_MAP = {
     'gamestop': GameStopChecker,
     'walmart': WalmartChecker,
     'tcgplayer': TCGPlayerChecker,
+    'costco': CostcoChecker,
+    'sams_club': SamsClubChecker,
+    'barnes_noble': BarnesNobleChecker,
 }
 
 
@@ -90,8 +96,11 @@ async def check_product(product, session, user_agents, state, settings, webhook_
     price_str = f' ${price}' if price else ''
     print(f'[{ts}] {name}: {label}{price_str} ({debug}){" ⚡" if changed else ""}')
 
-    if in_stock:
-        # Check price threshold
+    skip_reason = product.pop('_skip_reason', None)
+    if skip_reason:
+        print(f'  → Skipping: {skip_reason}')
+
+    if in_stock and not skip_reason:
         target = product.get('target_price')
         price_ok = True
         if target and price:

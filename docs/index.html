@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TCG Stock Monitor</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; background: #0d1117; color: #c9d1d9; padding: 20px; }
+  h1 { font-size: 1.5rem; margin-bottom: 4px; }
+  .subtitle { color: #8b949e; font-size: .85rem; margin-bottom: 20px; }
+  .stats { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+  .stat { background: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 12px 18px; min-width: 120px; }
+  .stat label { display: block; font-size: .75rem; color: #8b949e; text-transform: uppercase; letter-spacing: .5px; }
+  .stat value { font-size: 1.4rem; font-weight: 600; }
+  .products { display: grid; gap: 8px; }
+  .product { background: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 12px 16px; display: flex; align-items: center; gap: 12px; }
+  .status-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .in-stock .status-dot { background: #3fb950; box-shadow: 0 0 6px #3fb95088; }
+  .out-of-stock .status-dot { background: #f85149; }
+  .unknown .status-dot { background: #8b949e; }
+  .product .info { flex: 1; min-width: 0; }
+  .product .name { font-weight: 500; font-size: .9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .product .meta { font-size: .8rem; color: #8b949e; margin-top: 2px; }
+  .product .price { font-size: .9rem; font-weight: 500; flex-shrink: 0; }
+  .in-stock .price { color: #3fb950; }
+  .product .retailer { font-size: .7rem; background: #21262d; padding: 2px 8px; border-radius: 10px; color: #8b949e; flex-shrink: 0; }
+  .error { color: #f85149; text-align: center; padding: 40px; }
+  .loading { color: #8b949e; text-align: center; padding: 40px; }
+  .last-updated { text-align: right; font-size: .75rem; color: #484f58; margin-top: 16px; }
+  a { color: #58a6ff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<h1>TCG Stock Monitor</h1>
+<p class="subtitle">Tracking Pokémon &amp; One Piece TCG at 6 retailers</p>
+
+<div class="stats" id="stats"></div>
+<div class="products" id="products">
+  <div class="loading">Loading...</div>
+</div>
+<div class="last-updated" id="updated"></div>
+
+<script>
+const REPO = 'adamben04/tcg-bot';
+const STATE_URL = `https://raw.githubusercontent.com/${REPO}/main/state.json`;
+
+function label(status) {
+  if (status === 'in_stock') return 'IN STOCK';
+  if (status === 'out_of_stock') return 'OUT OF STOCK';
+  return 'UNKNOWN';
+}
+
+function retailerIcon(r) {
+  const icons = {
+    pokemon_center: 'PC',
+    target: 'Target',
+    best_buy: 'BB',
+    gamestop: 'GS',
+    walmart: 'Walmart',
+    costco: 'Costco',
+    sams_club: "Sam's",
+    barnes_noble: 'B&N',
+    tcgplayer: 'TCGP',
+  };
+  return icons[r] || r;
+}
+
+async function load() {
+  try {
+    const resp = await fetch(STATE_URL);
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const state = await resp.json();
+    render(state);
+  } catch (e) {
+    document.getElementById('products').innerHTML =
+      `<div class="error">Failed to load state: ${e.message}</div>`;
+  }
+}
+
+function render(state) {
+  const stats = state.stats || {};
+  const prods = state.products || {};
+
+  document.getElementById('stats').innerHTML = `
+    <div class="stat"><label>Products</label><value>${Object.keys(prods).length}</value></div>
+    <div class="stat"><label>Total Checks</label><value>${stats.total_checks || 0}</value></div>
+    <div class="stat"><label>Notifications</label><value>${stats.notifications_sent || 0}</value></div>
+    <div class="stat"><label>In Stock</label><value>${Object.values(prods).filter(p => p.last_status === 'in_stock').length}</value></div>
+  `;
+
+  const sorted = Object.values(prods).sort((a, b) => {
+    const o = { in_stock: 0, unknown: 1, out_of_stock: 2 };
+    return (o[a.last_status] || 3) - (o[b.last_status] || 3) || (a.name || '').localeCompare(b.name || '');
+  });
+
+  document.getElementById('products').innerHTML = sorted.map(p => {
+    const status = p.last_status || 'unknown';
+    const price = p.history && p.history.length > 0 ? p.history[p.history.length - 1].price : null;
+    const checked = p.last_checked ? new Date(p.last_checked).toLocaleString() : 'never';
+    const notified = p.last_notified ? new Date(p.last_notified).toLocaleString() : 'never';
+    return `<div class="product ${status}">
+      <span class="status-dot"></span>
+      <div class="info">
+        <div class="name" title="${p.name}">${p.name}</div>
+        <div class="meta">${label(status)} &middot; checked ${checked} &middot; notified ${notified}</div>
+      </div>
+      <span class="price">${price ? '$' + price : ''}</span>
+    </div>`;
+  }).join('');
+
+  document.getElementById('updated').textContent =
+    'Updated ' + new Date().toLocaleString();
+}
+
+load();
+</script>
+</body>
+</html>
