@@ -1,1 +1,22 @@
-{"products": {}, "stats": {"total_checks": 0, "notifications_sent": 0}}
+{
+  "products": {
+    "https://www.pokemoncenter.com/product/754-96687": {
+      "name": "Prismatic Evolutions Elite Trainer Box",
+      "url": "https://www.pokemoncenter.com/product/754-96687",
+      "last_status": "out_of_stock",
+      "last_notified": null,
+      "last_checked": "2026-05-24T08:46:09.907563+00:00"
+    },
+    "https://www.target.com/p/pok-mon-tcg-151-booster-bundle/-/A-89782656": {
+      "name": "Pok\u00e9mon TCG 151 Booster Bundle",
+      "url": "https://www.target.com/p/pok-mon-tcg-151-booster-bundle/-/A-89782656",
+      "last_status": "out_of_stock",
+      "last_notified": null,
+      "last_checked": "2026-05-24T08:46:11.597869+00:00"
+    }
+  },
+  "stats": {
+    "total_checks": 2,
+    "notifications_sent": 0
+  }
+}
