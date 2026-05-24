@@ -15,6 +15,20 @@ telegram:
 
 products:
   # ── Pokémon Center (uses curl_cffi bypass) ────────────
+  - name: "Stellar Crown PC ETB"
+    url: "https://www.pokemoncenter.com/product/190-85923/pokemon-tcg-scarlet-and-violet-stellar-crown-pokemon-center-elite-trainer-box"
+    retailer: pokemon_center
+    target_price: 77.99
+
+  - name: "Temporal Forces PC ETB"
+    url: "https://www.pokemoncenter.com/product/188-85717/pokemon-tcg-scarlet-and-violet-temporal-forces-pokemon-center-elite-trainer-box-walking-wake"
+    retailer: pokemon_center
+    target_price: 69.99
+
+  - name: "Shrouded Fable PC ETB"
+    url: "https://www.pokemoncenter.com/product/290-85854/pokemon-tcg-scarlet-and-violet-shrouded-fable-pokemon-center-elite-trainer-box"
+    retailer: pokemon_center
+    target_price: 69.99
   - name: "Prismatic Evolutions PC ETB"
     url: "https://www.pokemoncenter.com/product/100-10019"
     retailer: pokemon_center
@@ -75,6 +89,78 @@ products:
     check_mode: any
     extra:
       tcin: "89432660"
+
+  - name: "Stellar Crown ETB (Target)"
+    url: "https://www.target.com/p/pok-233-mon-trading-card-game-scarlet-38-violet-stellar-crown-elite-trainer-box/-/A-91619912"
+    retailer: target
+    target_price: 49.99
+    check_mode: any
+    extra:
+      tcin: "91619912"
+
+  - name: "Stellar Crown Booster Bundle (Target)"
+    url: "https://www.target.com/p/pok-233-mon-trading-card-game-scarlet-38-violet-stellar-crown-booster-bundle/-/A-91619942"
+    retailer: target
+    target_price: 29.99
+    check_mode: any
+    extra:
+      tcin: "91619942"
+
+  - name: "Stellar Crown Booster Display (Target)"
+    url: "https://www.target.com/p/pok-233-mon-trading-card-game-scarlet-38-violet-8212-stellar-crown-booster-display/-/A-92698334"
+    retailer: target
+    target_price: 159.99
+    check_mode: any
+    extra:
+      tcin: "92698334"
+
+  - name: "Temporal Forces ETB Walking Wake (Target)"
+    url: "https://www.target.com/p/pok-233-mon-trading-card-game-scarlet-38-violet-8212-temporal-forces-elite-trainer-box-walking-wake/-/A-91255505"
+    retailer: target
+    target_price: 49.99
+    check_mode: any
+    extra:
+      tcin: "91255505"
+
+  - name: "Temporal Forces Booster Bundle (Target)"
+    url: "https://www.target.com/p/pok-233-mon-trading-card-game-scarlet-38-violet-8212-temporal-forces-booster-bundle/-/A-89952655"
+    retailer: target
+    target_price: 29.99
+    check_mode: any
+    extra:
+      tcin: "89952655"
+
+  - name: "Shrouded Fable ETB (Target)"
+    url: "https://www.target.com/p/pok-233-mon-trading-card-game-scarlet-38-violet-8212-shrouded-fable-elite-trainer-box/-/A-91600215"
+    retailer: target
+    target_price: 49.99
+    check_mode: any
+    extra:
+      tcin: "91600215"
+
+  - name: "Shrouded Fable Booster Bundle (Target)"
+    url: "https://www.target.com/p/pok-233-mon-trading-card-game-scarlet-38-violet-shrouded-fable-booster-bundle/-/A-92436710"
+    retailer: target
+    target_price: 29.99
+    check_mode: any
+    extra:
+      tcin: "92436710"
+
+  - name: "151 Binder Collection (Target)"
+    url: "https://www.target.com/p/pok-233-mon-trading-card-game-scarlet-38-violet-151-binder-collection/-/A-89444929"
+    retailer: target
+    target_price: 35.99
+    check_mode: any
+    extra:
+      tcin: "89444929"
+
+  - name: "Charizard ex Premium Collection (Target)"
+    url: "https://www.target.com/p/pok-233-mon-trading-card-game-charizard-ex-premium-collection/-/A-88897908"
+    retailer: target
+    target_price: 39.99
+    check_mode: any
+    extra:
+      tcin: "88897908"
 
   # ── One Piece TCG (Target, multiple stores) ────────────
   - name: "One Piece OP-15 Kami's Island Box (Target)"
@@ -201,6 +287,26 @@ products:
     url: "https://www.amazon.com/dp/B0CXY99B6D"
     retailer: amazon
     target_price: 49.99
+
+  - name: "Stellar Crown ETB (Amazon)"
+    url: "https://www.amazon.com/Pokemon-TCG-Scarlet-Stellar-Trainer/dp/B0D894GL5B"
+    retailer: amazon
+    target_price: 49.99
+
+  - name: "Shrouded Fable ETB (Amazon)"
+    url: "https://www.amazon.com/Pokemon-TCG-Scarlet-Shrouded-Trainer/dp/B0D4B4SL9X"
+    retailer: amazon
+    target_price: 49.99
+
+  - name: "Temporal Forces Booster Bundle (Amazon)"
+    url: "https://www.amazon.com/Pokemon-TCG-Scarlet-Violet-Temporal-Booster/dp/B0CS68PLHM"
+    retailer: amazon
+    target_price: 29.99
+
+  - name: "151 Binder Collection (Amazon)"
+    url: "https://www.amazon.com/Pokemon-Scarlet-Violet-Binder-Collection/dp/B0C8XWR7BV"
+    retailer: amazon
+    target_price: 35.99
 
   # ── Chaos Rising (released 2026-05-22) ────────────
   - name: "Chaos Rising PC ETB"
