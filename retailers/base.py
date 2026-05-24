@@ -50,8 +50,8 @@ class RetailerChecker:
         return None
 
     async def _check_generic(self, url):
-        _, soup = await self._fetch(url)
-        text = (soup.get_text() or '').lower()
+        text, soup = await self._fetch(url)
+        body = (soup.get_text() or '').lower()
 
         json_ld = self._check_json_ld(soup)
         if json_ld is not None:
@@ -64,28 +64,20 @@ class RetailerChecker:
         ]
         in_phrases = [
             'add to cart', 'add to bag', 'buy now',
-            'pre-order', 'preorder', 'in stock',
+            'pre-order now', 'preorder now',
+            'place your order',
         ]
 
-        has_out = any(p in text for p in out_phrases)
-        has_in = any(p in text for p in in_phrases)
+        has_out = any(p in body for p in out_phrases)
+        has_in = any(p in body for p in in_phrases)
 
-        buttons = soup.select('button')
-        enabled_btn = any(
-            b.get('disabled') is None and b.get('aria-disabled') != 'true'
-            for b in buttons
-        )
-
-        if has_out and not has_in and not enabled_btn:
-            return (False, 'OOS text, no in-stock signal')
+        if has_out and not has_in:
+            return (False, f'OOS signal found')
 
         if has_in and not has_out:
-            return (True, 'In-stock text present')
-
-        if enabled_btn and not has_out:
-            return (True, 'Enabled button, no OOS text')
+            return (True, f'In-stock text present')
 
         if has_in and has_out:
-            return (True, 'Mixed signals — assuming in stock')
+            return (False, f'Mixed signals — defaulting to OOS')
 
-        return (False, 'No clear signal — defaulting to OOS')
+        return (False, f'No clear signal — defaulting to OOS')

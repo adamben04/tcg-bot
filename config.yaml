@@ -58,24 +58,7 @@ products:
     extra:
       tcin: "89432660"
 
-  # ── Best Buy ────────────────────────────────────────────
-  - name: "Prismatic Evolutions ETB (BB)"
-    url: "https://www.bestbuy.com/site/pokemon-trading-card-game-scarlet-violet-prismatic-evolutions-elite-trainer-box/6606082.p?skuId=6606082"
-    retailer: best_buy
-
-  - name: "Surging Sparks ETB (BB)"
-    url: "https://www.bestbuy.com/product/pokemon-scarlet-violet-surging-sparks-elite-trainer-box/J3YSYH378J"
-    retailer: best_buy
-
-  - name: "Surging Sparks Booster Bundle (BB)"
-    url: "https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-surging-sparks-6-pk-booster-bundle/J3YSYH8G46"
-    retailer: best_buy
-
-  - name: "Paldean Fates Booster Bundle (BB)"
-    url: "https://www.bestbuy.com/site/pokemon-trading-card-game-scarlet-violet-paldean-fates-6pk-booster-bundle/6568006.p?skuId=6568006"
-    retailer: best_buy
-
-  # ── GameStop ────────────────────────────────────────────
+   # ── GameStop ────────────────────────────────────────────
   - name: "Prismatic Evolutions ETB (GS)"
     url: "https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-prismatic-evolutions-elite-trainer-box/20018505.html"
     retailer: gamestop

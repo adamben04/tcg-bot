@@ -22,7 +22,7 @@ class TargetChecker(RetailerChecker):
             result = await self._check_api(tcin, extra.get('store_id', DEFAULT_STORE_ID))
             if result is not None:
                 return result
-        return await self._check_generic(product['url'])
+        return await self._check_html(product['url'])
 
     async def _check_api(self, tcin, store_id=DEFAULT_STORE_ID):
         url = TCIN_API.format(tcin=tcin, store_id=store_id)
@@ -50,3 +50,38 @@ class TargetChecker(RetailerChecker):
                 return (False, f'Target API: unknown status {status}')
         except (KeyError, TypeError):
             return None
+
+    async def _check_html(self, url):
+        _, soup = await self._fetch(url)
+        body = (soup.get_text() or '').lower()
+
+        json_ld = self._check_json_ld(soup)
+        if json_ld is not None:
+            return (json_ld, f"JSON-LD: {'in stock' if json_ld else 'out of stock'}")
+
+        # Find "Add to Cart" buttons and check if they are disabled
+        for btn in soup.select('button'):
+            txt = (btn.get_text(strip=True) or '').lower()
+            if 'add to cart' in txt or 'add to bag' in txt:
+                disabled = btn.get('disabled') is not None
+                if disabled:
+                    return (False, 'ATC button is disabled')
+                return (True, 'ATC button enabled')
+
+        out_phrases = [
+            'out of stock', 'sold out', 'not available',
+            'temporarily unavailable', 'currently unavailable',
+            'notify me when available', 'coming soon',
+        ]
+        has_out = any(p in body for p in out_phrases)
+        if has_out:
+            return (False, f'OOS signal found')
+
+        in_phrases = ['add to cart', 'add to bag', 'buy now', 'place your order']
+        has_in = any(p in body for p in in_phrases)
+        if has_in and not has_out:
+            return (True, 'In-stock text present')
+        if has_in and has_out:
+            return (False, 'Mixed — defaulting to OOS')
+
+        return (False, 'No clear signal — defaulting to OOS')

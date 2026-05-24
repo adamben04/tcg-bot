@@ -1,33 +1,42 @@
 from .base import RetailerChecker
 
 
+OUT_PATTERNS = [
+    'sold out', 'not available', 'notify when available',
+    'coming soon', 'unavailable', 'out of stock',
+]
+
+
 class GameStopChecker(RetailerChecker):
 
     async def check(self, product):
         _, soup = await self._fetch(product['url'])
-        text = (soup.get_text() or '').lower()
+        body = (soup.get_text() or '').lower()
 
         json_ld = self._check_json_ld(soup)
         if json_ld is not None:
             return (json_ld, f"JSON-LD: {'in stock' if json_ld else 'out of stock'}")
 
-        if 'sold out' in text or 'not available' in text or 'notify when available' in text:
-            return (False, 'OOS text found')
+        for phrase in OUT_PATTERNS:
+            if phrase in body:
+                return (False, f"Hit: '{phrase}'")
 
         add_btn = soup.select_one(
-            '.add-to-cart, '
-            '.buy-now, '
-            'button[data-pid], '
-            'button[data-add-to-cart]'
+            '.add-to-cart button, '
+            '.add-to-cart:not([disabled]), '
+            'button[data-add-to-cart]:not([disabled])'
         )
         if add_btn:
-            disabled = add_btn.get('disabled') is not None
-            if disabled:
-                return (False, 'ATC button disabled')
-            return (True, 'ATC button enabled')
+            return (True, 'ATC button found')
 
-        preorder_btn = soup.select_one('button:not([disabled])')
-        if preorder_btn and ('pre-order' in text or 'preorder' in text):
-            return (True, 'Pre-order button available')
+        buttons = soup.find_all('button', string=lambda t: t and (
+            'add to cart' in t.lower()
+            or 'buy now' in t.lower()
+            or 'pre-order' in t.lower()
+            or 'place your order' in t.lower()
+        ))
+        for btn in buttons:
+            if btn.get('disabled') is None and btn.get('aria-disabled') != 'true':
+                return (True, f"Button text: '{btn.get_text(strip=True)[:30]}'")
 
-        return await self._check_generic(product['url'])
+        return (False, 'No ATC button or OOS signal found')
