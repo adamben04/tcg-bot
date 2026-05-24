@@ -9,6 +9,19 @@ import random
 import aiohttp
 from datetime import datetime, timezone
 
+GREEN = '\033[92m'
+RED = '\033[91m'
+AMBER = '\033[93m'
+BLUE = '\033[94m'
+BOLD = '\033[1m'
+DIM = '\033[2m'
+RESET = '\033[0m'
+
+def c(text, color=''):
+    if not sys.stdout.isatty() and not os.environ.get('CI'):
+        return text
+    return color + text + RESET if color else text
+
 from retailers.base import RetailerChecker
 from retailers.pokemon_center import PokemonCenterChecker
 from retailers.target import TargetChecker
@@ -132,7 +145,9 @@ async def check_product(product, session, user_agents, state, settings, webhook_
             reason = f' — skip: {skip_reason}'
         else:
             reason = f' — price ${price} > MSRP'
-    print(f'[{ts}] {name}: {label}{price_str} ({debug}){" ⚡" if changed else ""}{reason}')
+    color = GREEN if effective_in_stock else (AMBER if changed and not effective_in_stock else RED)
+    icon = '⚡' if changed else (' ✓' if effective_in_stock else '')
+    print(f'[{ts}] {c(name, BOLD)}: {c(label, color)}{price_str} ({debug}){icon}{reason}')
 
     if in_stock and not effective_in_stock:
         tp = product.get('target_price', 0)
@@ -195,11 +210,13 @@ async def main():
         del state['products'][key]
         print(f'  Pruned stale state entry: {key}')
 
-    print(f'TCG Stock Checker — {len(products)} product(s)')
-    print(f'Discord: {"✅" if webhook_url else "⚠️  not set"}')
-    print(f'Telegram: {"✅" if telegram.get("token") else "⚠️  not set"}')
-    print(f'Stats: {state["stats"]["total_checks"]} checks, {state["stats"]["notifications_sent"]} sent')
-    print('-' * 50)
+    pushtoken = pushover.get('token') if pushover else None
+    print(f'{c("TCG Stock Checker", BOLD)} — {len(products)} product(s) across {len(set(p["retailer"] for p in products))} retailers')
+    print(f'  {c("Discord", BLUE)}: {c("✅", GREEN) if webhook_url else c("not set", DIM)}')
+    print(f'  {c("Telegram", BLUE)}: {c("✅", GREEN) if telegram.get("token") else c("not set", DIM)}')
+    print(f'  {c("Pushover", BLUE)}: {c("✅", GREEN) if pushtoken else c("not set", DIM)}')
+    print(f'  {c(f"{state["stats"]["total_checks"]} total checks, {state["stats"]["notifications_sent"]} notifications", DIM)}')
+    print('─' * 50)
 
     connector = aiohttp.TCPConnector(limit=5)
     async with aiohttp.ClientSession(connector=connector) as session:
@@ -220,8 +237,15 @@ async def main():
         1 for p in products
         if state['products'].get(p['url'], {}).get('last_status') == 'in_stock'
     )
-    print(f'\nDone — {in_stock_count}/{len(products)} in stock')
-    print(f'Total checks: {state["stats"]["total_checks"]}')
+    pct = round(100 * in_stock_count / len(products)) if products else 0
+    bar_len = 20
+    filled = round(bar_len * in_stock_count / len(products)) if products else 0
+    bar = c('█' * filled, GREEN) + c('░' * (bar_len - filled), DIM)
+    print(f'\n{c("Summary", BOLD)}')
+    print(f'  {bar} {in_stock_count}/{len(products)} in stock ({pct}%)')
+    print(f'  {c("Total checks", DIM)}: {state["stats"]["total_checks"]}')
+    if state["stats"].get("notifications_sent"):
+        print(f'  {c("Notifications sent", DIM)}: {state["stats"]["notifications_sent"]}')
 
 
 if __name__ == '__main__':
