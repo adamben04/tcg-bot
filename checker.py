@@ -91,11 +91,24 @@ async def check_product(product, session, user_agents, state, settings, webhook_
     print(f'[{ts}] {name}: {label}{price_str} ({debug}){" ⚡" if changed else ""}')
 
     if in_stock:
+        # Check price threshold
+        target = product.get('target_price')
+        price_ok = True
+        if target and price:
+            try:
+                price_ok = float(price) <= target
+            except ValueError:
+                pass
+            if not price_ok:
+                print(f'  → Price ${price} > target ${target:.2f} — skipping notification')
+
         last_notified = prod_state.get('last_notified')
         cooldown_m = settings.get('cooldown_minutes', 60)
         should_notify = False
 
-        if last_notified is None:
+        if not price_ok:
+            should_notify = False
+        elif last_notified is None:
             should_notify = True
         else:
             elapsed = (datetime.now(timezone.utc) - datetime.fromisoformat(last_notified)).total_seconds() / 60
