@@ -20,8 +20,8 @@ const BESTBUY_SKUS = [
   { sku: "6584757", name: "One Piece OP-10 Royal Blood" },
 ];
 
-async function targetStores(tcin, zip, apiKey, env) {
-  const url = `https://api.target.com/fulfillment_aggregator/v1/fiats/${tcin}?key=${apiKey}&nearby=${zip}&limit=20&requested_quantity=1&radius=50`;
+async function targetAvailability(tcin, apiKey) {
+  const url = `https://redsky.target.com/redsky_aggregations/v1/web/pdp_client_v1?key=${apiKey}&tcin=${tcin}&visitor_id=tcg-bot-web`;
   const headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
     "Accept": "application/json",
@@ -31,38 +31,40 @@ async function targetStores(tcin, zip, apiKey, env) {
   };
   try {
     const resp = await fetch(url, { headers, timeout: 15000 });
-    if (!resp.ok) return { tcin, error: `Target API error ${resp.status}` };
+    if (resp.status === 403) {
+      return { tcin, online: null, error: "API key rejected (403)" };
+    }
+    if (!resp.ok) return { tcin, online: null, error: `Target error ${resp.status}` };
     const data = await resp.json();
-    const products = data?.products ?? [];
-    const stores = [];
-    for (const p of products) {
-      for (const loc of (p.locations ?? [])) {
-        const qty = loc.location_available_to_promise_quantity;
-        if (qty !== undefined && qty !== null) {
-          stores.push({
-            store_id: loc.location_id,
-            city: loc.city,
-            state: loc.state,
-            distance: loc.distance,
-            quantity: qty,
-            status: qty > 0 ? "IN_STOCK" : "OUT_OF_STOCK",
-          });
+    let shipStatus = null;
+    const storeMethods = [];
+    try {
+      const avail = data.product.item.availability;
+      shipStatus = avail.availability_status || null;
+      const fulfillment = data.product.fulfillment;
+      const opts = (fulfillment && fulfillment.options) || [];
+      for (const opt of opts) {
+        const ft = opt.fulfillment_type || "";
+        const st = opt.availability_status || "";
+        const oos = opt.is_out_of_stock_in_area;
+        if ((st === "IN_STOCK" || oos === false) && ft) {
+          storeMethods.push(ft);
         }
       }
-    }
-    stores.sort((a, b) => (a.distance ?? 999) - (b.distance ?? 999));
-    return { tcin, stores };
+    } catch (_) {}
+    const online = shipStatus === "IN_STOCK" || shipStatus === "LIMITED_AVAILABILITY";
+    return { tcin, online, shipStatus, storeMethods };
   } catch (err) {
-    return { tcin, error: err.message };
+    return { tcin, online: null, error: err.message };
   }
 }
 
-async function bestbuyStores(sku, zip, apiKey, env) {
+async function bestbuyStores(sku, zip, apiKey) {
   const fields = "storeId,name,city,state,distance,lowStock";
   const url = `https://api.bestbuy.com/v1/products/${sku}/stores.json?postalCode=${zip}&apiKey=${apiKey}&show=${fields}`;
   try {
     const resp = await fetch(url, { timeout: 15000 });
-    if (!resp.ok) return { sku, error: `Best Buy API error ${resp.status}` };
+    if (!resp.ok) return { sku, error: `Best Buy error ${resp.status}` };
     const data = await resp.json();
     const stores = (data.stores ?? []).map((s) => ({
       store_id: s.storeId,
@@ -103,7 +105,7 @@ export async function onRequest(context) {
     });
   }
 
-  const targetKey = env.TARGET_API_KEY || "";
+  const apiKey = env.TARGET_API_KEY || "9f36aeafbe60771e321a7cc95a78140772ab3e96";
   const bestbuyKey = env.BESTBUY_API_KEY || "";
 
   const targetProducts = tcinFilter
@@ -115,14 +117,14 @@ export async function onRequest(context) {
 
   const targetResults = await mapConcurrent(
     targetProducts,
-    (p) => targetStores(p.tcin, zip, targetKey, env).then((r) => ({ ...r, name: p.name })),
+    (p) => targetAvailability(p.tcin, apiKey).then((r) => ({ ...r, name: p.name })),
     4
   );
   let bestbuyResults = [];
   if (bestbuyKey) {
     bestbuyResults = await mapConcurrent(
       bestbuyProducts,
-      (p) => bestbuyStores(p.sku, zip, bestbuyKey, env).then((r) => ({ ...r, name: p.name })),
+      (p) => bestbuyStores(p.sku, zip, bestbuyKey).then((r) => ({ ...r, name: p.name })),
       4
     );
   }
@@ -136,9 +138,7 @@ export async function onRequest(context) {
     if (r.status === "fulfilled") bestbuy.push(r.value);
   }
 
-  const body = JSON.stringify({ zip, target, bestbuy });
-
-  return new Response(body, {
+  return new Response(JSON.stringify({ zip, target, bestbuy }), {
     headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*", "Cache-Control": "public, max-age=60" },
   });
 }

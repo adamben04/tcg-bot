@@ -406,7 +406,10 @@ function render(data) {
     return;
   }
 
-  inputHint.textContent = `${data.zip} — ${data.target.reduce((a, p) => a + (p.stores || []).length, 0) + data.bestbuy.reduce((a, p) => a + (p.stores || []).length, 0)} nearby stores`;
+  const tStoreCount = data.target.reduce((a, p) => a + (p.stores || []).length, 0);
+  const bStoreCount = data.bestbuy.reduce((a, p) => a + (p.stores || []).length, 0);
+  const totalNearby = tStoreCount + bStoreCount;
+  inputHint.textContent = totalNearby ? `${data.zip} — ${totalNearby} nearby stores` : `${data.zip}`;
 
   let totalStores = 0;
   let totalInStock = 0;
@@ -414,42 +417,35 @@ function render(data) {
 
   if (hasTarget) {
     let tInStock = 0;
-    let tStores = 0;
+    let tCount = 0;
     let rows = '';
     for (const prod of data.target) {
+      tCount++;
       if (prod.error) {
-        rows += `<div class="product"><div class="product-header">${prod.name || prod.tcin} <span class="error-inline">— ${prod.error}</span></div></div>`;
+        rows += `<div class="product"><div class="product-header">${escHtml(prod.name)} <span class="error-inline">— ${prod.error}</span></div></div>`;
         continue;
       }
-      const stores = prod.stores || [];
-      tStores += stores.length;
-      tInStock += stores.filter(s => s.quantity > 0).length;
-      rows += `<div class="product"><div class="product-header">${escHtml(prod.name)}</div>`;
-      if (stores.length === 0) {
-        rows += `<div class="empty-msg">No nearby stores</div>`;
-      } else {
-        rows += `<div class="stores">`;
-        for (const s of stores) {
-          const qCls = s.quantity > 0 ? 'ok' : 'zero';
-          const dotCls = s.quantity > 0 ? 'green' : 'red';
-          rows += `<div class="store">
-            <span class="dot ${dotCls}"></span>
-            <span class="id">#${escHtml(s.store_id)}</span>
-            <span class="city">${escHtml(s.city)}</span>
-            <span class="dist">${s.distance ?? '-'} mi</span>
-            <span class="qty ${qCls}">${s.quantity}</span>
-          </div>`;
-        }
-        rows += `</div>`;
+      const dotCls = prod.online ? 'green' : prod.online === false ? 'red' : 'gray';
+      const label = prod.online ? 'In stock' : prod.online === false ? 'Out of stock' : 'Unknown';
+      const methods = (prod.storeMethods && prod.storeMethods.length) ? prod.storeMethods.join(', ') : '';
+      if (prod.online) tInStock++;
+      rows += `<div class="product">
+        <div class="product-header">
+          <span class="dot ${dotCls}" style="display:inline-block;vertical-align:middle;margin-right:6px"></span>
+          ${escHtml(prod.name)}
+          <span style="color:var(--text-tertiary);font-weight:400;margin-left:4px">${label}</span>
+        </div>`;
+      if (methods) {
+        rows += `<div style="font-size:12px;color:var(--text-tertiary);margin-top:-2px;margin-bottom:4px;padding-left:16px">Store pickup: ${methods}</div>`;
       }
       rows += `</div>`;
     }
     totalInStock += tInStock;
-    totalStores += tStores;
+    totalStores += tCount;
     html += `<div class="section">
       <div class="section-head">
         <h2>Target</h2>
-        <span class="count">${tInStock} in stock · ${tStores} stores</span>
+        <span class="count">${tInStock} available · ${tCount} products</span>
         <span class="line"></span>
       </div>${rows}
     </div>`;
@@ -499,13 +495,13 @@ function render(data) {
     </div>`;
   }
 
-  const totalCount = data.target.reduce((a, p) => a + (p.stores || []).length, 0) + data.bestbuy.reduce((a, p) => a + (p.stores || []).length, 0);
+  const totalCount = tStoreCount + bStoreCount;
 
   resultsDiv.innerHTML = `
     <div class="summary-bar">
-      <span>Stores <value>${totalCount}</value></span>
+      <span>Products <value>${data.target.length + data.bestbuy.length}</value></span>
       <span class="sep">·</span>
-      <span>In stock <value>${totalInStock}</value></span>
+      <span>Available <value>${totalInStock}</value></span>
     </div>
     ${html}
   `;
