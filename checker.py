@@ -61,7 +61,7 @@ def save_state(state):
         json.dump(state, f, indent=2)
 
 
-async def check_product(product, session, user_agents, state, settings, webhook_url, telegram):
+async def check_product(product, session, user_agents, state, settings, webhook_url, telegram, pushover=None):
     name = product['name']
     url = product['url']
     retailer = product.get('retailer', 'generic')
@@ -163,7 +163,7 @@ async def check_product(product, session, user_agents, state, settings, webhook_
 
         if should_notify:
             try:
-                sent = await send_notifications(webhook_url, telegram, product, price, session)
+                sent = await send_notifications(webhook_url, telegram, product, price, session, pushover)
                 if sent:
                     state['stats']['notifications_sent'] += sent
                     prod_state['last_notified'] = datetime.now(timezone.utc).isoformat()
@@ -183,6 +183,7 @@ async def main():
     products = config.get('products', [])
     webhook_url = os.environ.get('DISCORD_WEBHOOK', '')
     telegram = config.get('telegram', {})
+    pushover = config.get('pushover', {})
 
     if not products:
         print('No products in config.yaml — nothing to check')
@@ -203,7 +204,7 @@ async def main():
     connector = aiohttp.TCPConnector(limit=5)
     async with aiohttp.ClientSession(connector=connector) as session:
         tasks = [
-            check_product(p, session, user_agents, state, settings, webhook_url, telegram)
+            check_product(p, session, user_agents, state, settings, webhook_url, telegram, pushover)
             for p in products
         ]
         results = await asyncio.gather(*tasks, return_exceptions=True)

@@ -13,6 +13,10 @@ telegram:
   token: ""
   chat_id: ""
 
+pushover:
+  token: ""
+  user: ""
+
 products:
   # ── Pokémon Center (uses curl_cffi bypass) ────────────
   - name: "Stellar Crown PC ETB"
