@@ -1,0 +1,7 @@
+name = "tcg-bot"
+compatibility_date = "2026-05-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+BESTBUY_API_KEY = ""
+TARGET_API_KEY = "9f36aeafbe60771e321a7cc95a78140772ab3e96"

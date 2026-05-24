@@ -30,6 +30,7 @@ jobs:
         run: python checker.py
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          BESTBUY_API_KEY: ${{ secrets.BESTBUY_API_KEY }}
 
       - name: Commit state changes
         run: |
