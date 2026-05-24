@@ -8,6 +8,8 @@ class BestBuyChecker(RetailerChecker):
 
     async def check(self, product):
         text, soup = await self._fetch(product['url'])
+        product['_price'] = self._extract_price(soup)
+        body = text.lower()
 
         json_ld = self._check_json_ld(soup)
         if json_ld is not None:
@@ -18,8 +20,8 @@ class BestBuyChecker(RetailerChecker):
             r'window\.__PRELOADED_STATE__\s*=\s*({.*?});',
             r'window\.__PHOENIX_STATE__\s*=\s*({.*?});',
         ]
-        for pattern in patterns:
-            match = re.search(pattern, text, re.DOTALL)
+        for p in patterns:
+            match = re.search(p, text, re.DOTALL)
             if match:
                 try:
                     state = json.loads(match.group(1))
@@ -29,7 +31,6 @@ class BestBuyChecker(RetailerChecker):
                 except json.JSONDecodeError:
                     continue
 
-        body = text.lower()
         if 'sold out' in body or 'coming soon' in body:
             return (False, 'Sold out label found')
 

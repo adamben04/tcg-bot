@@ -9,8 +9,12 @@ settings:
     - Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:127.0) Gecko/20100101 Firefox/127.0
     - Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:127.0) Gecko/20100101 Firefox/127.0
 
+telegram:
+  token: ""
+  chat_id: ""
+
 products:
-  # ── Pokémon Center ─────────────────────────────────────
+  # ── Pokémon Center (uses curl_cffi bypass) ────────────
   - name: "Prismatic Evolutions PC ETB"
     url: "https://www.pokemoncenter.com/product/100-10019"
     retailer: pokemon_center
@@ -58,8 +62,7 @@ products:
     extra:
       tcin: "89432660"
 
-   # ── GameStop (blocked by Cloudflare — kept for when we add bypass) ──
-  # ── One Piece TCG (Target) ───────────────────────────────────
+  # ── One Piece TCG (Target) ──────────────────────────────
   - name: "One Piece OP-15 Kami's Island Box (Target)"
     url: "https://www.target.com/p/bandai-one-piece-tcg-adventure-on-kami-s-island-booster-box-op-15-eb-04-24-packs/-/A-1010548868"
     retailer: target
@@ -89,3 +92,20 @@ products:
     retailer: target
     extra:
       tcin: "1001561462"
+
+  # ── Walmart ─────────────────────────────────────────────
+  - name: "Prismatic Evolutions ETB (Walmart)"
+    url: "https://www.walmart.com/ip/Pokemon-Scarlet-Violet-Prismatic-Evolutions-Elite-Trainer-Box/13816151308"
+    retailer: walmart
+
+  - name: "Surging Sparks Booster Bundle (Walmart)"
+    url: "https://www.walmart.com/ip/Pokemon-TCG-Scarlet-Violet-Surging-Sparks-Booster-Bundle/15341224796"
+    retailer: walmart
+
+  - name: "Paldean Fates ETB (Walmart)"
+    url: "https://www.walmart.com/ip/POKEMON-SV4-5-PALDEAN-FATES-ETB/5226743070"
+    retailer: walmart
+
+  - name: "One Piece PRB-01 The Best Box (Walmart)"
+    url: "https://www.walmart.com/ip/Bandai-One-Piece-Card-Game-Premium-Booster-Box-PRB-01-THE-BEST/8166567581"
+    retailer: walmart

@@ -1,7 +1,19 @@
 import json
 import random
+import re
 
 from bs4 import BeautifulSoup
+
+try:
+    from curl_cffi.requests import AsyncSession as CurlSession
+    HAS_CURL = True
+except ImportError:
+    HAS_CURL = False
+
+BLOCK_MARKERS = [
+    'incapsula', 'just a moment', 'cf-ray', 'cf-challenge',
+    'attention required', 'cloudflare', '403 forbidden',
+]
 
 
 class RetailerChecker:
@@ -11,6 +23,8 @@ class RetailerChecker:
         self.user_agents = user_agents
 
     async def check(self, product):
+        text, soup = await self._fetch(product['url'])
+        product['_price'] = self._extract_price(soup)
         return await self._check_generic(product['url'])
 
     async def _fetch(self, url):
@@ -19,7 +33,36 @@ class RetailerChecker:
             url, headers=headers, timeout=15, allow_redirects=True,
         ) as resp:
             text = await resp.text()
-            return text, BeautifulSoup(text, 'html.parser')
+
+        if self._is_blocked(text):
+            bypass = await self._fetch_bypass(url)
+            if bypass:
+                text = bypass
+
+        return text, BeautifulSoup(text, 'html.parser')
+
+    def _is_blocked(self, text):
+        if not text or len(text) < 2000:
+            return True
+        lower = text.lower()
+        return any(m in lower for m in BLOCK_MARKERS)
+
+    async def _fetch_bypass(self, url):
+        if not HAS_CURL:
+            return None
+        try:
+            headers = {'User-Agent': random.choice(self.user_agents)}
+            async with CurlSession() as s:
+                resp = await s.get(url, headers=headers, impersonate='chrome', timeout=15)
+                return resp.text
+        except Exception:
+            return None
+
+    def _extract_price(self, soup):
+        body = soup.get_text() or ''
+        matches = re.findall(r'\$(\d+\.\d{2})', body)
+        valid = [m for m in matches if 1 < float(m) < 10000]
+        return valid[0] if valid else None
 
     def _check_json_ld(self, soup):
         for script in soup.select('script[type="application/ld+json"]'):
@@ -72,12 +115,9 @@ class RetailerChecker:
         has_in = any(p in body for p in in_phrases)
 
         if has_out and not has_in:
-            return (False, f'OOS signal found')
-
+            return (False, 'OOS signal found')
         if has_in and not has_out:
-            return (True, f'In-stock text present')
-
+            return (True, 'In-stock text present')
         if has_in and has_out:
-            return (False, f'Mixed signals — defaulting to OOS')
-
-        return (False, f'No clear signal — defaulting to OOS')
+            return (False, 'Mixed signals — defaulting to OOS')
+        return (False, 'No clear signal — defaulting to OOS')

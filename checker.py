@@ -16,7 +16,7 @@ from retailers.best_buy import BestBuyChecker
 from retailers.gamestop import GameStopChecker
 from retailers.walmart import WalmartChecker
 from retailers.tcgplayer import TCGPlayerChecker
-from notifier import send_discord_notification
+from notifier import send_notifications
 
 CONFIG_PATH = 'config.yaml'
 STATE_PATH = 'state.json'
@@ -48,7 +48,7 @@ def save_state(state):
         json.dump(state, f, indent=2)
 
 
-async def check_product(product, session, user_agents, state, settings, webhook_url):
+async def check_product(product, session, user_agents, state, settings, webhook_url, telegram):
     name = product['name']
     url = product['url']
     retailer = product.get('retailer', 'generic')
@@ -59,7 +59,11 @@ async def check_product(product, session, user_agents, state, settings, webhook_
         'last_status': 'unknown',
         'last_notified': None,
         'last_checked': None,
+        'history': [],
     })
+
+    # Reset any previous price from the product dict before checking
+    product.pop('_price', None)
 
     await asyncio.sleep(random.uniform(0.5, 3.0))
 
@@ -72,18 +76,21 @@ async def check_product(product, session, user_agents, state, settings, webhook_
         print(f'[ERROR] {name}: {exc}')
         return
 
+    price = product.get('_price')
+
     state['stats']['total_checks'] += 1
     prod_state['last_checked'] = datetime.now(timezone.utc).isoformat()
 
     prev_status = prod_state['last_status']
     prod_state['last_status'] = 'in_stock' if in_stock else 'out_of_stock'
 
-    ts = datetime.now().strftime('%H:%M:%S')
+    ts = datetime.now(timezone.utc).strftime('%H:%M:%S')
     label = 'IN STOCK' if in_stock else 'OUT OF STOCK'
     changed = prev_status != prod_state['last_status']
-    print(f'[{ts}] {name}: {label} ({debug}){" ⚡" if changed else ""}')
+    price_str = f' ${price}' if price else ''
+    print(f'[{ts}] {name}: {label}{price_str} ({debug}){" ⚡" if changed else ""}')
 
-    if in_stock and webhook_url:
+    if in_stock:
         last_notified = prod_state.get('last_notified')
         cooldown_m = settings.get('cooldown_minutes', 60)
         should_notify = False
@@ -96,15 +103,21 @@ async def check_product(product, session, user_agents, state, settings, webhook_
 
         if should_notify:
             try:
-                ok = await send_discord_notification(webhook_url, product, session)
-                if ok:
-                    state['stats']['notifications_sent'] += 1
+                sent = await send_notifications(webhook_url, telegram, product, price, session)
+                if sent:
+                    state['stats']['notifications_sent'] += sent
                     prod_state['last_notified'] = datetime.now(timezone.utc).isoformat()
-                    print('  → Discord notification sent')
+                    prod_state['history'].append({
+                        'at': datetime.now(timezone.utc).isoformat(),
+                        'price': price,
+                    })
+                    # Keep last 50 events
+                    prod_state['history'] = prod_state['history'][-50:]
+                    print(f'  → Notifications sent ({sent} channel(s))')
                 else:
-                    print('  → Discord notification FAILED')
+                    print('  → Notifications failed')
             except Exception as exc:
-                print(f'  → Discord notification error: {exc}')
+                print(f'  → Notification error: {exc}')
 
 
 async def main():
@@ -115,6 +128,7 @@ async def main():
     user_agents = settings.get('user_agents', [])
     products = config.get('products', [])
     webhook_url = os.environ.get('DISCORD_WEBHOOK', '')
+    telegram = config.get('telegram', {})
 
     if not products:
         print('No products in config.yaml — nothing to check')
@@ -127,14 +141,15 @@ async def main():
         print(f'  Pruned stale state entry: {key}')
 
     print(f'TCG Stock Checker — {len(products)} product(s)')
-    print(f'Webhook: {"✅ set" if webhook_url else "⚠️  not set (notifications disabled)"}')
+    print(f'Discord: {"✅" if webhook_url else "⚠️  not set"}')
+    print(f'Telegram: {"✅" if telegram.get("token") else "⚠️  not set"}')
     print(f'Stats: {state["stats"]["total_checks"]} checks, {state["stats"]["notifications_sent"]} sent')
     print('-' * 50)
 
     connector = aiohttp.TCPConnector(limit=5)
     async with aiohttp.ClientSession(connector=connector) as session:
         tasks = [
-            check_product(p, session, user_agents, state, settings, webhook_url)
+            check_product(p, session, user_agents, state, settings, webhook_url, telegram)
             for p in products
         ]
         results = await asyncio.gather(*tasks, return_exceptions=True)

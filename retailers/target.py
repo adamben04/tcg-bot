@@ -1,4 +1,5 @@
 import random
+import re
 
 from .base import RetailerChecker
 
@@ -18,11 +19,24 @@ class TargetChecker(RetailerChecker):
     async def check(self, product):
         extra = product.get('extra', {})
         tcin = extra.get('tcin')
+
+        _, soup = await self._fetch(product['url'])
+        product['_price'] = self._extract_price(soup)
+
         if tcin:
             result = await self._check_api(tcin, extra.get('store_id', DEFAULT_STORE_ID))
             if result is not None:
                 return result
-        return await self._check_html(product['url'])
+        return await self._check_html(soup)
+
+    def _extract_price(self, soup):
+        for sel in ['[data-test="product-price"]', '.h-text-xl', '.price']:
+            el = soup.select_one(sel)
+            if el:
+                m = re.search(r'\$?(\d+\.\d{2})', el.get_text())
+                if m:
+                    return m.group(1)
+        return super()._extract_price(soup)
 
     async def _check_api(self, tcin, store_id=DEFAULT_STORE_ID):
         url = TCIN_API.format(tcin=tcin, store_id=store_id)
@@ -51,15 +65,13 @@ class TargetChecker(RetailerChecker):
         except (KeyError, TypeError):
             return None
 
-    async def _check_html(self, url):
-        _, soup = await self._fetch(url)
+    async def _check_html(self, soup):
         body = (soup.get_text() or '').lower()
 
         json_ld = self._check_json_ld(soup)
         if json_ld is not None:
             return (json_ld, f"JSON-LD: {'in stock' if json_ld else 'out of stock'}")
 
-        # Find "Add to Cart" buttons and check if they are disabled
         for btn in soup.select('button'):
             txt = (btn.get_text(strip=True) or '').lower()
             if 'add to cart' in txt or 'add to bag' in txt:
@@ -75,7 +87,7 @@ class TargetChecker(RetailerChecker):
         ]
         has_out = any(p in body for p in out_phrases)
         if has_out:
-            return (False, f'OOS signal found')
+            return (False, 'OOS signal found')
 
         in_phrases = ['add to cart', 'add to bag', 'buy now', 'place your order']
         has_in = any(p in body for p in in_phrases)
@@ -83,5 +95,4 @@ class TargetChecker(RetailerChecker):
             return (True, 'In-stock text present')
         if has_in and has_out:
             return (False, 'Mixed — defaulting to OOS')
-
         return (False, 'No clear signal — defaulting to OOS')
