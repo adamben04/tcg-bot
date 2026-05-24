@@ -116,16 +116,44 @@ function runBatch(items, fn, concurrency) {
   return process().then(function() { return results; });
 }
 
+function lookupZip(zip, targetKey, bestbuyKey, tcinFilter, skuFilter) {
+  var targetItems = tcinFilter ? [{ tcin: tcinFilter, name: tcinFilter }] : TARGET_TCINS;
+  var bestbuyItems = skuFilter ? [{ sku: skuFilter, name: skuFilter }] : BESTBUY_SKUS;
+
+  var result = { zip: zip, target: [], bestbuy: [] };
+
+  return runBatch(targetItems, function(p) {
+    return targetCheck(p.tcin, targetKey).then(function(r) {
+      r.name = p.name;
+      return r;
+    });
+  }, 4).then(function(targetData) {
+    result.target = targetData;
+    if (bestbuyKey && bestbuyItems.length > 0) {
+      return runBatch(bestbuyItems, function(p) {
+        return bestbuyCheck(p.sku, zip, bestbuyKey).then(function(r) {
+          r.name = p.name;
+          return r;
+        });
+      }, 4);
+    }
+    return [];
+  }).then(function(bestbuyData) {
+    result.bestbuy = bestbuyData;
+    return result;
+  });
+}
+
 export async function onRequest(context) {
   var req = context.request;
   var env = context.env;
   var url = new URL(req.url);
-  var zip = url.searchParams.get("zip");
+  var zipParam = (url.searchParams.get("zip") || "").trim();
   var tcinFilter = url.searchParams.get("tcin");
   var skuFilter = url.searchParams.get("sku");
 
-  if (!zip || !/^\d{5}$/.test(zip)) {
-    return new Response(JSON.stringify({ error: "Missing or invalid ZIP" }), {
+  if (!zipParam) {
+    return new Response(JSON.stringify({ error: "Missing ZIP parameter" }), {
       status: 400,
       headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
     });
@@ -134,33 +162,26 @@ export async function onRequest(context) {
   var targetKey = env.TARGET_API_KEY || "9f36aeafbe60771e321a7cc95a78140772ab3e96";
   var bestbuyKey = env.BESTBUY_API_KEY || "";
 
-  var targetItems = tcinFilter ? [{ tcin: tcinFilter, name: tcinFilter }] : TARGET_TCINS;
-  var bestbuyItems = skuFilter ? [{ sku: skuFilter, name: skuFilter }] : BESTBUY_SKUS;
+  var zips = zipParam.split(",").map(function(z) { return z.trim(); });
+  var validZips = zips.filter(function(z) { return /^\d{5}$/.test(z); });
 
-  var targetData = [];
-  var bestbuyData = [];
-
-  if (targetItems.length > 0) {
-    var tr = await runBatch(targetItems, function(p) {
-      return targetCheck(p.tcin, targetKey).then(function(r) {
-        r.name = p.name;
-        return r;
-      });
-    }, 4);
-    targetData = tr;
+  if (validZips.length === 0) {
+    return new Response(JSON.stringify({ error: "No valid 5-digit ZIPs provided" }), {
+      status: 400,
+      headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+    });
   }
 
-  if (bestbuyKey && bestbuyItems.length > 0) {
-    var br = await runBatch(bestbuyItems, function(p) {
-      return bestbuyCheck(p.sku, zip, bestbuyKey).then(function(r) {
-        r.name = p.name;
-        return r;
-      });
-    }, 4);
-    bestbuyData = br;
+  var results = await Promise.all(validZips.map(function(zip) {
+    return lookupZip(zip, targetKey, bestbuyKey, tcinFilter, skuFilter);
+  }));
+
+  var response = { zips: results, count: results.length };
+  if (validZips.length === 1) {
+    response = results[0];
   }
 
-  return new Response(JSON.stringify({ zip: zip, target: targetData, bestbuy: bestbuyData }), {
+  return new Response(JSON.stringify(response), {
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
