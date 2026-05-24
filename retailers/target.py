@@ -4,19 +4,12 @@ import re
 from .base import RetailerChecker
 
 
-TCIN_API = (
-    'https://redsky.target.com/redsky_aggregations/v1/web/pdp_client_v1'
-    '?key=9f36aeafbe60771e321a7cc95a78140772ab3e96'
-    '&tcin={tcin}'
-    '&pricing_store_id={store_id}'
-    '&visitor_id=tcg-bot'
-)
-DEFAULT_STORE_ID = '1284'
+DEFAULT_STORE_IDS = ['1284', '1573', '1805']
+API_KEY = '9f36aeafbe60771e321a7cc95a78140772ab3e96'
 
 
 def _parse_fulfillment(data):
     available = []
-    unavailable = []
     try:
         fulfillment = data['product']['fulfillment']
         options = fulfillment.get('options', []) if isinstance(fulfillment, dict) else fulfillment
@@ -26,26 +19,45 @@ def _parse_fulfillment(data):
             ready = opt.get('is_out_of_stock_in_area', True)
             if status == 'IN_STOCK' or ready is False:
                 available.append(ftype)
-            else:
-                unavailable.append(ftype)
     except (KeyError, TypeError, AttributeError):
         pass
-    return available, unavailable
+    return available
 
 
 class TargetChecker(RetailerChecker):
+
+    def __init__(self, session, user_agents):
+        super().__init__(session, user_agents)
+        self._api_key = API_KEY
+
+    async def _refresh_api_key(self):
+        try:
+            headers = {'User-Agent': random.choice(self.user_agents)}
+            async with self.session.get(
+                'https://www.target.com/', headers=headers, timeout=10,
+            ) as resp:
+                text = await resp.text()
+            m = re.search(r'"apiKey":"(\w+)"', text)
+            if m:
+                self._api_key = m.group(1)
+        except Exception:
+            pass
 
     async def check(self, product):
         extra = product.get('extra', {})
         tcin = extra.get('tcin')
         check_mode = product.get('check_mode', 'shipping')
+        store_ids = extra.get('store_ids') or extra.get('store_id')
+        if isinstance(store_ids, str):
+            store_ids = [store_ids]
+        if not store_ids:
+            store_ids = DEFAULT_STORE_IDS
 
         _, soup = await self._fetch(product['url'])
         product['_price'] = self._extract_price(soup)
 
         if tcin:
-            store_id = extra.get('store_id', DEFAULT_STORE_ID)
-            result = await self._check_api(tcin, store_id, check_mode)
+            result = await self._check_multi_store(tcin, store_ids, check_mode)
             if result is not None:
                 return result
         return await self._check_html(soup)
@@ -59,13 +71,29 @@ class TargetChecker(RetailerChecker):
                     return m.group(1)
         return super()._extract_price(soup)
 
+    async def _check_multi_store(self, tcin, store_ids, check_mode):
+        for sid in store_ids:
+            result = await self._check_api(tcin, sid, check_mode)
+            if result is not None and result[0]:
+                return result
+        return await self._check_api(tcin, store_ids[0], check_mode)
+
     async def _check_api(self, tcin, store_id, check_mode):
-        url = TCIN_API.format(tcin=tcin, store_id=store_id)
+        url = (
+            'https://redsky.target.com/redsky_aggregations/v1/web/pdp_client_v1'
+            f'?key={self._api_key}'
+            f'&tcin={tcin}'
+            f'&pricing_store_id={store_id}'
+            '&visitor_id=tcg-bot'
+        )
         headers = {
             'User-Agent': random.choice(self.user_agents),
             'Accept': 'application/json',
         }
         async with self.session.get(url, headers=headers, timeout=15) as resp:
+            if resp.status == 403:
+                await self._refresh_api_key()
+                return None
             if resp.status != 200:
                 return None
             data = await resp.json()
@@ -78,14 +106,14 @@ class TargetChecker(RetailerChecker):
 
         ship_ok = ship_status in ('IN_STOCK', 'LIMITED_AVAILABILITY')
 
-        avail_types, unavail_types = _parse_fulfillment(data)
+        avail_types = _parse_fulfillment(data)
         store_methods = [t for t in avail_types if t in ('PICKUP', 'DRIVE_UP', 'IN_STORE_PICKUP')]
         store_ok = len(store_methods) > 0
 
         if check_mode == 'store':
             if store_ok:
-                return (True, f'Store pickup: {", ".join(store_methods)}')
-            return (False, 'Not available for store pickup')
+                return (True, f'Store {store_id}: {", ".join(store_methods)}')
+            return (False, f'Store {store_id}: OOS')
 
         if check_mode == 'any':
             if ship_ok or store_ok:
@@ -93,9 +121,9 @@ class TargetChecker(RetailerChecker):
                 if ship_ok:
                     parts.append(f'Ship: {ship_status}')
                 if store_ok:
-                    parts.append(f'Store: {", ".join(store_methods)}')
+                    parts.append(f'Store {store_id}: {", ".join(store_methods)}')
                 return (True, ' | '.join(parts))
-            return (False, f'Ship: {ship_status}, store OOS')
+            return (False, f'Store {store_id}: Ship {ship_status}, store OOS')
 
         if ship_ok:
             return (True, f'Shipping: {ship_status}')

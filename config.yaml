@@ -43,7 +43,6 @@ products:
     check_mode: any
     extra:
       tcin: "93954435"
-      store_id: "1284"
 
   - name: "Surging Sparks ETB (Target)"
     url: "https://www.target.com/p/pokemon-trading-card-game-scarlet-38-violet-surging-sparks-elite-trainer-box/-/A-91619922"
@@ -52,7 +51,6 @@ products:
     check_mode: any
     extra:
       tcin: "91619922"
-      store_id: "1284"
 
   - name: "Surging Sparks Booster Bundle (Target)"
     url: "https://www.target.com/p/pokemon-trading-card-game-scarlet-38-violet-surging-sparks-booster-bundle/-/A-91619929"
@@ -61,7 +59,6 @@ products:
     check_mode: any
     extra:
       tcin: "91619929"
-      store_id: "1284"
 
   - name: "Paldean Fates ETB (Target)"
     url: "https://www.target.com/p/pok-233-mon-trading-card-game-scarlet-38-violet-8212-paldean-fates-elite-trainer-box/-/A-89432659"
@@ -70,7 +67,6 @@ products:
     check_mode: any
     extra:
       tcin: "89432659"
-      store_id: "1284"
 
   - name: "Paldean Fates Booster Bundle (Target)"
     url: "https://www.target.com/p/pok-233-mon-trading-card-game-scarlet-38-violet-8212-paldean-fates-booster-bundle/-/A-89432660"
@@ -79,9 +75,8 @@ products:
     check_mode: any
     extra:
       tcin: "89432660"
-      store_id: "1284"
 
-  # ── One Piece TCG (Target, Northgate) ───────────────────
+  # ── One Piece TCG (Target, multiple stores) ────────────
   - name: "One Piece OP-15 Kami's Island Box (Target)"
     url: "https://www.target.com/p/bandai-one-piece-tcg-adventure-on-kami-s-island-booster-box-op-15-eb-04-24-packs/-/A-1010548868"
     retailer: target
@@ -89,7 +84,6 @@ products:
     check_mode: any
     extra:
       tcin: "1010548868"
-      store_id: "1284"
 
   - name: "One Piece OP-14 Azure Sea Box (Target)"
     url: "https://www.target.com/p/bandai-one-piece-tcg-the-azure-sea-s-seven-booster-box-op-14-24-packs/-/A-1008009274"
@@ -98,7 +92,6 @@ products:
     check_mode: any
     extra:
       tcin: "1008009274"
-      store_id: "1284"
 
   - name: "One Piece OP-11 Fist of Divine Speed Box (Target)"
     url: "https://www.target.com/p/bandai-one-piece-tcg-a-fist-of-divine-speed-booster-box-op-11-24-packs/-/A-1003688214"
@@ -107,7 +100,6 @@ products:
     check_mode: any
     extra:
       tcin: "1003688214"
-      store_id: "1284"
 
   - name: "One Piece OP-10 Royal Blood Box (Target)"
     url: "https://www.target.com/p/bandai-one-piece-tcg-royal-blood-booster-box-op10-24-packs/-/A-1002658635"
@@ -116,7 +108,6 @@ products:
     check_mode: any
     extra:
       tcin: "1002658635"
-      store_id: "1284"
 
   - name: "One Piece PRB-01 Premium Booster The Best (Target)"
     url: "https://www.target.com/p/bandai-one-piece-tcg-premium-booster-booster-box-the-best-prb-01/-/A-1001561462"
@@ -125,7 +116,6 @@ products:
     check_mode: any
     extra:
       tcin: "1001561462"
-      store_id: "1284"
 
   # ── Walmart ─────────────────────────────────────────────
   - name: "Prismatic Evolutions ETB (Walmart)"
@@ -175,3 +165,14 @@ products:
     url: "https://www.barnesandnoble.com/w/pokemon-ionos-bellibolt-premium-coll-ex-box-pokemon/1147265179"
     retailer: barnes_noble
     target_price: 39.99
+
+  # ── Amazon ──────────────────────────────────────────────
+  - name: "Prismatic Evolutions ETB (Amazon)"
+    url: "https://www.amazon.com/Pokemon-TCG-Scarlet-Violet-Prismatic-Evolutions/dp/B0DLPL7LC5"
+    retailer: amazon
+    target_price: 54.99
+
+  - name: "Prismatic Evolutions Booster Bundle (Amazon)"
+    url: "https://www.amazon.com/dp/B0DN98RVZM"
+    retailer: amazon
+    target_price: 29.99

@@ -13,6 +13,15 @@ except ImportError:
 BLOCK_MARKERS = [
     'incapsula', 'just a moment', 'cf-ray', 'cf-challenge',
     'attention required', 'cloudflare', '403 forbidden',
+    'pardon our interruption', 'please stand by',
+    'powered and protected by akamai',
+    'we are checking your browser', 'checking your browser',
+]
+
+IMPRESONATE_VERSIONS = [
+    'chrome', 'chrome146', 'chrome145', 'chrome142',
+    'safari260', 'safari260_ios',
+    'firefox147', 'firefox144',
 ]
 
 
@@ -30,7 +39,7 @@ class RetailerChecker:
     async def _fetch(self, url):
         headers = {'User-Agent': random.choice(self.user_agents)}
         async with self.session.get(
-            url, headers=headers, timeout=15, allow_redirects=True,
+            url, headers=headers, timeout=20, allow_redirects=True,
         ) as resp:
             text = await resp.text()
 
@@ -41,22 +50,30 @@ class RetailerChecker:
 
         return text, BeautifulSoup(text, 'html.parser')
 
+    async def _fetch_bypass(self, url, versions=None):
+        if not HAS_CURL:
+            return None
+        if versions is None:
+            versions = IMPRESONATE_VERSIONS
+        last_exc = None
+        for imp in versions:
+            try:
+                headers = {'User-Agent': random.choice(self.user_agents)}
+                async with CurlSession() as s:
+                    resp = await s.get(url, headers=headers, impersonate=imp, timeout=20)
+                    text = resp.text
+                    if not self._is_blocked(text):
+                        return text
+            except Exception as exc:
+                last_exc = exc
+                continue
+        return None
+
     def _is_blocked(self, text):
         if not text or len(text) < 2000:
             return True
         lower = text.lower()
         return any(m in lower for m in BLOCK_MARKERS)
-
-    async def _fetch_bypass(self, url):
-        if not HAS_CURL:
-            return None
-        try:
-            headers = {'User-Agent': random.choice(self.user_agents)}
-            async with CurlSession() as s:
-                resp = await s.get(url, headers=headers, impersonate='chrome', timeout=15)
-                return resp.text
-        except Exception:
-            return None
 
     def _extract_price(self, soup):
         body = soup.get_text() or ''

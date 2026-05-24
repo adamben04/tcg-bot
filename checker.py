@@ -19,6 +19,7 @@ from retailers.tcgplayer import TCGPlayerChecker
 from retailers.costco import CostcoChecker
 from retailers.sams_club import SamsClubChecker
 from retailers.barnes_noble import BarnesNobleChecker
+from retailers.amazon import AmazonChecker
 from notifier import send_notifications
 
 CONFIG_PATH = 'config.yaml'
@@ -34,6 +35,7 @@ RETAILER_MAP = {
     'costco': CostcoChecker,
     'sams_club': SamsClubChecker,
     'barnes_noble': BarnesNobleChecker,
+    'amazon': AmazonChecker,
 }
 
 
