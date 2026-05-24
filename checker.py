@@ -85,24 +85,43 @@ async def check_product(product, session, user_agents, state, settings, webhook_
         return
 
     price = product.get('_price')
+    skip_reason = product.pop('_skip_reason', None)
 
     state['stats']['total_checks'] += 1
     prod_state['last_checked'] = datetime.now(timezone.utc).isoformat()
 
     prev_status = prod_state['last_status']
-    prod_state['last_status'] = 'in_stock' if in_stock else 'out_of_stock'
+
+    price_ok_for_status = True
+    if in_stock and not skip_reason and price:
+        target = product.get('target_price')
+        if target:
+            try:
+                if float(price) > target:
+                    price_ok_for_status = False
+            except ValueError:
+                pass
+
+    effective_in_stock = in_stock and not skip_reason and price_ok_for_status
+    prod_state['last_status'] = 'in_stock' if effective_in_stock else 'out_of_stock'
 
     ts = datetime.now(timezone.utc).strftime('%H:%M:%S')
-    label = 'IN STOCK' if in_stock else 'OUT OF STOCK'
+    label = 'IN STOCK' if effective_in_stock else 'OUT OF STOCK'
     changed = prev_status != prod_state['last_status']
     price_str = f' ${price}' if price else ''
-    print(f'[{ts}] {name}: {label}{price_str} ({debug}){" ⚡" if changed else ""}')
+    reason = ''
+    if in_stock and not effective_in_stock:
+        if skip_reason:
+            reason = f' — skip: {skip_reason}'
+        else:
+            reason = f' — price ${price} > MSRP'
+    print(f'[{ts}] {name}: {label}{price_str} ({debug}){" ⚡" if changed else ""}{reason}')
 
-    skip_reason = product.pop('_skip_reason', None)
-    if skip_reason:
-        print(f'  → Skipping: {skip_reason}')
+    if in_stock and not effective_in_stock:
+        tp = product.get('target_price', 0)
+        print(f'  → Skipping (not at MSRP): {skip_reason or f"${price} > ${tp}"}')
 
-    if in_stock and not skip_reason:
+    if effective_in_stock:
         target = product.get('target_price')
         price_ok = True
         if target and price:
