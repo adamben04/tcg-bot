@@ -10,13 +10,84 @@ settings:
     - Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:127.0) Gecko/20100101 Firefox/127.0
 
 products:
-  - name: "Prismatic Evolutions Elite Trainer Box"
-    url: "https://www.pokemoncenter.com/product/754-96687"
+  # ── Pokémon Center ─────────────────────────────────────
+  - name: "Prismatic Evolutions PC ETB"
+    url: "https://www.pokemoncenter.com/product/100-10019"
     retailer: pokemon_center
-    image: ""
 
-  - name: "Pokémon TCG 151 Booster Bundle"
-    url: "https://www.target.com/p/pok-mon-tcg-151-booster-bundle/-/A-89782656"
+  - name: "Surging Sparks Booster Display Box"
+    url: "https://www.pokemoncenter.com/product/699-42312"
+    retailer: pokemon_center
+
+  - name: "151 Booster Bundle (PC)"
+    url: "https://www.pokemoncenter.com/product/699-85322"
+    retailer: pokemon_center
+
+  - name: "Paldean Fates PC ETB"
+    url: "https://www.pokemoncenter.com/product/290-85619"
+    retailer: pokemon_center
+
+  # ── Target ──────────────────────────────────────────────
+  - name: "Prismatic Evolutions ETB (Target)"
+    url: "https://www.target.com/p/2024-pok-scarlet-violet-s8-5-elite-trainer-box/-/A-93954435"
     retailer: target
     extra:
-      tcin: "89782656"
+      tcin: "93954435"
+
+  - name: "Surging Sparks ETB (Target)"
+    url: "https://www.target.com/p/pokemon-trading-card-game-scarlet-38-violet-surging-sparks-elite-trainer-box/-/A-91619922"
+    retailer: target
+    extra:
+      tcin: "91619922"
+
+  - name: "Surging Sparks Booster Bundle (Target)"
+    url: "https://www.target.com/p/pokemon-trading-card-game-scarlet-38-violet-surging-sparks-booster-bundle/-/A-91619929"
+    retailer: target
+    extra:
+      tcin: "91619929"
+
+  - name: "Paldean Fates ETB (Target)"
+    url: "https://www.target.com/p/pok-233-mon-trading-card-game-scarlet-38-violet-8212-paldean-fates-elite-trainer-box/-/A-89432659"
+    retailer: target
+    extra:
+      tcin: "89432659"
+
+  - name: "Paldean Fates Booster Bundle (Target)"
+    url: "https://www.target.com/p/pok-233-mon-trading-card-game-scarlet-38-violet-8212-paldean-fates-booster-bundle/-/A-89432660"
+    retailer: target
+    extra:
+      tcin: "89432660"
+
+  # ── Best Buy ────────────────────────────────────────────
+  - name: "Prismatic Evolutions ETB (BB)"
+    url: "https://www.bestbuy.com/site/pokemon-trading-card-game-scarlet-violet-prismatic-evolutions-elite-trainer-box/6606082.p?skuId=6606082"
+    retailer: best_buy
+
+  - name: "Surging Sparks ETB (BB)"
+    url: "https://www.bestbuy.com/product/pokemon-scarlet-violet-surging-sparks-elite-trainer-box/J3YSYH378J"
+    retailer: best_buy
+
+  - name: "Surging Sparks Booster Bundle (BB)"
+    url: "https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-surging-sparks-6-pk-booster-bundle/J3YSYH8G46"
+    retailer: best_buy
+
+  - name: "Paldean Fates Booster Bundle (BB)"
+    url: "https://www.bestbuy.com/site/pokemon-trading-card-game-scarlet-violet-paldean-fates-6pk-booster-bundle/6568006.p?skuId=6568006"
+    retailer: best_buy
+
+  # ── GameStop ────────────────────────────────────────────
+  - name: "Prismatic Evolutions ETB (GS)"
+    url: "https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-prismatic-evolutions-elite-trainer-box/20018505.html"
+    retailer: gamestop
+
+  - name: "Surging Sparks Booster Box (GS)"
+    url: "https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-scarlet-and-violet-surging-sparks-booster-box-36-count/20015279.html"
+    retailer: gamestop
+
+  - name: "Crown Zenith ETB (GS)"
+    url: "https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-crown-zenith-elite-trainer-box/20020097.html"
+    retailer: gamestop
+
+  - name: "151 Mini Tin (GS)"
+    url: "https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-scarlet-and-violet-151-collection-mini-tin-styles-may-vary/20006086.html"
+    retailer: gamestop
