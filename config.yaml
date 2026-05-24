@@ -35,77 +35,97 @@ products:
     retailer: pokemon_center
     target_price: 69.99
 
-  # ── Target ──────────────────────────────────────────────
+  # ── Target (Northgate store ID 1284) ────────────────────
   - name: "Prismatic Evolutions ETB (Target)"
     url: "https://www.target.com/p/2024-pok-scarlet-violet-s8-5-elite-trainer-box/-/A-93954435"
     retailer: target
     target_price: 59.99
+    check_mode: any
     extra:
       tcin: "93954435"
+      store_id: "1284"
 
   - name: "Surging Sparks ETB (Target)"
     url: "https://www.target.com/p/pokemon-trading-card-game-scarlet-38-violet-surging-sparks-elite-trainer-box/-/A-91619922"
     retailer: target
     target_price: 49.99
+    check_mode: any
     extra:
       tcin: "91619922"
+      store_id: "1284"
 
   - name: "Surging Sparks Booster Bundle (Target)"
     url: "https://www.target.com/p/pokemon-trading-card-game-scarlet-38-violet-surging-sparks-booster-bundle/-/A-91619929"
     retailer: target
     target_price: 29.99
+    check_mode: any
     extra:
       tcin: "91619929"
+      store_id: "1284"
 
   - name: "Paldean Fates ETB (Target)"
     url: "https://www.target.com/p/pok-233-mon-trading-card-game-scarlet-38-violet-8212-paldean-fates-elite-trainer-box/-/A-89432659"
     retailer: target
     target_price: 49.99
+    check_mode: any
     extra:
       tcin: "89432659"
+      store_id: "1284"
 
   - name: "Paldean Fates Booster Bundle (Target)"
     url: "https://www.target.com/p/pok-233-mon-trading-card-game-scarlet-38-violet-8212-paldean-fates-booster-bundle/-/A-89432660"
     retailer: target
     target_price: 29.99
+    check_mode: any
     extra:
       tcin: "89432660"
+      store_id: "1284"
 
-  # ── One Piece TCG (Target) ──────────────────────────────
+  # ── One Piece TCG (Target, Northgate) ───────────────────
   - name: "One Piece OP-15 Kami's Island Box (Target)"
     url: "https://www.target.com/p/bandai-one-piece-tcg-adventure-on-kami-s-island-booster-box-op-15-eb-04-24-packs/-/A-1010548868"
     retailer: target
     target_price: 119.99
+    check_mode: any
     extra:
       tcin: "1010548868"
+      store_id: "1284"
 
   - name: "One Piece OP-14 Azure Sea Box (Target)"
     url: "https://www.target.com/p/bandai-one-piece-tcg-the-azure-sea-s-seven-booster-box-op-14-24-packs/-/A-1008009274"
     retailer: target
     target_price: 119.99
+    check_mode: any
     extra:
       tcin: "1008009274"
+      store_id: "1284"
 
   - name: "One Piece OP-11 Fist of Divine Speed Box (Target)"
     url: "https://www.target.com/p/bandai-one-piece-tcg-a-fist-of-divine-speed-booster-box-op-11-24-packs/-/A-1003688214"
     retailer: target
     target_price: 119.99
+    check_mode: any
     extra:
       tcin: "1003688214"
+      store_id: "1284"
 
   - name: "One Piece OP-10 Royal Blood Box (Target)"
     url: "https://www.target.com/p/bandai-one-piece-tcg-royal-blood-booster-box-op10-24-packs/-/A-1002658635"
     retailer: target
     target_price: 119.99
+    check_mode: any
     extra:
       tcin: "1002658635"
+      store_id: "1284"
 
   - name: "One Piece PRB-01 Premium Booster The Best (Target)"
     url: "https://www.target.com/p/bandai-one-piece-tcg-premium-booster-booster-box-the-best-prb-01/-/A-1001561462"
     retailer: target
     target_price: 99.99
+    check_mode: any
     extra:
       tcin: "1001561462"
+      store_id: "1284"
 
   # ── Walmart ─────────────────────────────────────────────
   - name: "Prismatic Evolutions ETB (Walmart)"
