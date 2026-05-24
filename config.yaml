@@ -467,10 +467,25 @@ products:
     retailer: box_lunch
     target_price: 64.90
 
+  - name: "Destined Rivals PC ETB"
+    url: "https://www.pokemoncenter.com/product/100-10653/pokemon-tcg-scarlet-and-violet-destined-rivals-pokemon-center-elite-trainer-box"
+    retailer: pokemon_center
+    target_price: 69.99
+
+  - name: "Destined Rivals ETB (Amazon)"
+    url: "https://www.amazon.com/Pokemon-TCG-Scarlet-Destined-Accessories/dp/B0F2BDXW4J"
+    retailer: amazon
+    target_price: 59.99
+
   - name: "Destined Rivals ETB (Box Lunch)"
     url: "https://www.boxlunch.com/product/pokemon-trading-card-game-scarlet-violet-destined-rivals-elite-trainer-box/34342399.html"
     retailer: box_lunch
     target_price: 59.90
+
+  - name: "Destined Rivals ETB (GameStop)"
+    url: "https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-destined-rivals-elite-trainer-box/20021586.html"
+    retailer: gamestop
+    target_price: 59.99
 
   # ── Hot Topic ──────────────────────────────────────
   - name: "Surging Sparks ETB (Hot Topic)"
