@@ -6,20 +6,27 @@
 <title>TCG Stock Monitor</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #050505;
     --surface: #0c0c0c;
     --surface-hover: #141414;
+    --surface-border: rgba(255,255,255,0.04);
     --text: #e8e8e8;
     --text-secondary: #888;
     --text-tertiary: #484848;
     --green: #22c65e;
+    --green-dim: rgba(34,198,94,0.12);
     --red: #ef4444;
+    --red-dim: rgba(239,68,68,0.12);
     --amber: #eab308;
+    --amber-dim: rgba(234,179,8,0.12);
+    --blue: #3b82f6;
     --ease: cubic-bezier(0.16, 1, 0.3, 1);
     --font: 'Inter', system-ui, -apple-system, sans-serif;
+    --radius: 8px;
+    --radius-sm: 4px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
@@ -31,88 +38,167 @@
     letter-spacing: -0.012em;
     background: var(--bg);
     color: var(--text);
-    padding: 80px 32px 120px;
-    max-width: 800px;
+    padding: 64px 32px 120px;
+    max-width: 900px;
     margin: 0 auto;
     min-height: 100vh;
   }
   a { color: var(--text-secondary); text-decoration: none; transition: color 0.2s var(--ease); }
   a:hover { color: var(--text); }
 
-  .top {
-    margin-bottom: 96px;
+  .top-bar {
     display: flex;
     align-items: center;
-    gap: 24px;
     justify-content: space-between;
+    margin-bottom: 64px;
+    gap: 16px;
   }
-  .top-left { display: flex; align-items: center; gap: 24px; }
+  .top-bar nav { display: flex; gap: 16px; font-size: 13px; font-weight: 500; }
 
-  h1 {
+  .hed h1 {
     font-size: 40px;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: -0.035em;
     line-height: 1.05;
-    margin-bottom: 8px;
-  }
-  .hed {
-    margin-bottom: 56px;
+    margin-bottom: 6px;
   }
   .hed .sub {
     font-size: 14px;
-    font-weight: 400;
-    letter-spacing: -0.01em;
     color: var(--text-tertiary);
   }
 
-  .stat-row {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-    margin-bottom: 56px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 0;
+    margin: 40px 0 32px;
+    padding: 20px 0;
+    border-top: 1px solid var(--surface-border);
+    border-bottom: 1px solid var(--surface-border);
   }
-  .stat-item {
+  .stat-cell { text-align: left; }
+  .stat-cell label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    display: block;
+    margin-bottom: 2px;
+  }
+  .stat-cell value {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+  .stat-cell value.green { color: var(--green); }
+  .stat-cell value.red { color: var(--red); }
+
+  .controls {
     display: flex;
-    align-items: baseline;
     gap: 6px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    align-items: center;
   }
-  .stat-item label {
+  .filter-btn {
+    font-family: var(--font);
     font-size: 12px;
     font-weight: 500;
+    padding: 5px 12px;
+    border-radius: var(--radius);
+    border: 1px solid var(--surface-border);
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.15s var(--ease);
+    letter-spacing: -0.005em;
+  }
+  .filter-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.1); }
+  .filter-btn.active {
+    background: rgba(255,255,255,0.06);
+    color: var(--text);
+    border-color: rgba(255,255,255,0.12);
+  }
+  .filter-btn.count {
+    position: relative;
+  }
+  .filter-btn .badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 0 5px;
+    margin-left: 4px;
+    border-radius: 3px;
+    background: rgba(255,255,255,0.06);
+    color: var(--text-tertiary);
+  }
+  .filter-btn.active .badge { background: var(--green-dim); color: var(--green); }
+
+  .search-wrap {
+    flex: 1;
+    min-width: 160px;
+    position: relative;
+  }
+  .search-wrap input {
+    font-family: var(--font);
+    font-size: 13px;
+    width: 100%;
+    padding: 6px 12px;
+    border-radius: var(--radius);
+    border: 1px solid var(--surface-border);
+    background: var(--surface);
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.15s var(--ease);
+  }
+  .search-wrap input:focus { border-color: rgba(255,255,255,0.12); }
+  .search-wrap input::placeholder { color: var(--text-tertiary); }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 8px 8px;
+    margin-top: 8px;
+    border-top: 1px solid var(--surface-border);
+    font-size: 11px;
+    font-weight: 600;
     letter-spacing: 0.03em;
     text-transform: uppercase;
     color: var(--text-tertiary);
   }
-  .stat-item value {
-    font-size: 22px;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    color: var(--text);
+  .section-header:first-of-type { border-top: none; margin-top: 0; }
+  .section-header .sec-count {
+    font-weight: 400;
+    color: var(--text-tertiary);
   }
 
-  .list { }
   .list-item {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 6px 8px;
+    padding: 7px 8px;
     margin: 0 -8px;
     border-radius: 6px;
     transition: background 0.15s var(--ease);
     cursor: default;
+    opacity: 0;
+    animation: fadeIn 0.3s var(--ease) forwards;
   }
   .list-item:hover { background: var(--surface-hover); }
+  @keyframes fadeIn { to { opacity: 1; } }
+
   .list-item .dot {
-    width: 6px;
-    height: 6px;
+    width: 6px; height: 6px;
     border-radius: 50%;
     flex-shrink: 0;
   }
-  .list-item .dot.stock { background: var(--green); box-shadow: 0 0 5px rgba(34,198,94,0.25); }
+  .list-item .dot.in_stock { background: var(--green); box-shadow: 0 0 5px rgba(34,198,94,0.25); }
   .list-item .dot.unknown { background: var(--amber); }
-  .list-item .dot.oos { background: var(--red); }
+  .list-item .dot.out_of_stock { background: var(--text-tertiary); }
+
   .list-item .name {
     flex: 1;
     font-size: 14px;
@@ -124,77 +210,172 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  .list-item .name a {
-    color: inherit;
-    text-decoration: none;
+  .list-item .name a { color: inherit; }
+  .list-item .name a:hover { color: var(--text-secondary); }
+
+  .list-item .tag {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+    opacity: 0.5;
+    transition: opacity 0.15s var(--ease);
   }
-  .list-item .name a:hover {
-    color: var(--text-secondary);
-  }
+  .list-item:hover .tag { opacity: 0.8; }
+
   .list-item .price {
     font-size: 13px;
-    font-weight: 450;
+    font-weight: 500;
     font-variant-numeric: tabular-nums;
     color: var(--text-secondary);
     flex-shrink: 0;
-    min-width: 48px;
+    min-width: 44px;
     text-align: right;
   }
   .list-item .price.green { color: var(--green); }
-  .list-item .meta {
+  .list-item .price.red { color: var(--red); }
+
+  .list-item .trend {
     font-size: 12px;
-    font-weight: 400;
-    color: var(--text-tertiary);
     flex-shrink: 0;
-    min-width: 60px;
-    text-align: right;
+    width: 16px;
+    text-align: center;
   }
-  .list-item .tag {
+  .list-item .trend.up { color: var(--green); }
+  .list-item .trend.down { color: var(--red); }
+
+  .list-item .checked {
     font-size: 11px;
-    font-weight: 500;
     color: var(--text-tertiary);
-    padding: 0 6px;
     flex-shrink: 0;
+    min-width: 54px;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .list-item .buy-btn {
+    font-family: var(--font);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    border: 1px solid rgba(34,198,94,0.2);
+    color: var(--green);
+    cursor: pointer;
+    transition: all 0.15s var(--ease);
+    flex-shrink: 0;
+    text-decoration: none;
+  }
+  .list-item .buy-btn:hover { background: var(--green-dim); border-color: var(--green); }
+
+  .activity-section { margin-top: 48px; }
+  .activity-section h3 {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: 12px;
+  }
+  .activity-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+  .activity-item .dot-sm {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .activity-item .dot-sm.green { background: var(--green); }
+  .activity-item .dot-sm.red { background: var(--red); }
+  .activity-item .act-time {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
   }
 
-  .error { color: var(--red); text-align: center; padding: 40px 0; font-size: 13px; }
-  .loading { color: var(--text-tertiary); text-align: center; padding: 40px 0; font-size: 13px; }
+  .empty {
+    color: var(--text-tertiary);
+    text-align: center;
+    padding: 32px 0;
+    font-size: 13px;
+  }
+
   .foot {
-    margin-top: 48px;
+    margin-top: 64px;
     padding-top: 16px;
-    border-top: 1px solid rgba(255,255,255,0.04);
+    border-top: 1px solid var(--surface-border);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 12px;
+    color: var(--text-tertiary);
   }
-  .foot .updated { font-size: 12px; color: var(--text-tertiary); }
+
+  .hidden { display: none; }
 
   @media (max-width: 640px) {
-    body { padding: 48px 20px 80px; }
-    h1 { font-size: 28px; }
-    .top { margin-bottom: 64px; }
-    .stat-row { gap: 20px; flex-wrap: wrap; }
-    .stat-item value { font-size: 18px; }
+    body { padding: 32px 16px 80px; }
+    .top-bar { margin-bottom: 40px; flex-wrap: wrap; }
+    .hed h1 { font-size: 28px; }
+    .stats-grid { grid-template-columns: repeat(3, 1fr); gap: 12px 0; }
+    .controls { gap: 4px; }
+    .filter-btn { font-size: 11px; padding: 4px 8px; }
+    .list-item { padding: 6px 4px; margin: 0 -4px; flex-wrap: wrap; gap: 6px; }
+    .list-item .name { white-space: normal; }
+    .list-item .checked { min-width: 44px; font-size: 10px; }
   }
 </style>
 </head>
 <body>
 
-<div class="top">
-  <div class="top-left">
+<div class="top-bar">
+  <nav>
     <a href="inventory.html">In-Store</a>
-  </div>
+  </nav>
 </div>
 
 <div class="hed">
   <h1>Stock Monitor</h1>
-  <div class="sub">Pokémon &amp; One Piece TCG at 6 retailers</div>
+  <div class="sub">Pokémon &amp; One Piece TCG</div>
 </div>
 
-<div class="stat-row" id="stats"></div>
-<div id="products">
-  <div class="loading">Loading…</div>
+<div class="stats-grid" id="stats"></div>
+
+<div class="controls">
+  <button class="filter-btn active" data-filter="all">All <span class="badge" id="count-all"></span></button>
+  <button class="filter-btn" data-filter="pokemon_center">PC <span class="badge"></span></button>
+  <button class="filter-btn" data-filter="target">Target <span class="badge"></span></button>
+  <button class="filter-btn" data-filter="amazon">Amazon <span class="badge"></span></button>
+  <button class="filter-btn" data-filter="best_buy">Best Buy <span class="badge"></span></button>
+  <button class="filter-btn" data-filter="walmart">Walmart <span class="badge"></span></button>
+  <button class="filter-btn" data-filter="gamestop">GameStop <span class="badge"></span></button>
+  <button class="filter-btn" data-filter="costco">Costco <span class="badge"></span></button>
+  <button class="filter-btn" data-filter="box_lunch">BoxLunch <span class="badge"></span></button>
+  <button class="filter-btn" data-filter="hottopic">HT <span class="badge"></span></button>
+  <button class="filter-btn" data-filter="premium_bandai">P-Bandai <span class="badge"></span></button>
+  <button class="filter-btn" data-filter="in_stock">In Stock</button>
+  <div class="search-wrap">
+    <input type="text" id="search" placeholder="Search products…" autocomplete="off">
+  </div>
 </div>
+
+<div id="products"></div>
+
+<div class="activity-section" id="activity-section">
+  <h3>Recent Changes</h3>
+  <div id="activity"></div>
+</div>
+
 <div class="foot">
   <div class="updated" id="updated"></div>
 </div>
@@ -202,91 +383,232 @@
 <script>
 const REPO = 'adamben04/tcg-bot';
 const STATE_URL = `https://raw.githubusercontent.com/${REPO}/main/state.json`;
+const RET_MAP = {
+  pokemon_center: 'PC', target: 'Target', best_buy: 'BB',
+  gamestop: 'GS', walmart: 'Walmart', costco: 'Costco',
+  sams_club: "Sam's", barnes_noble: 'B&N', tcgplayer: 'TCGP',
+  amazon: 'Amazon', box_lunch: 'BoxLunch', hottopic: 'HT',
+  premium_bandai: 'P-Bandai',
+};
+const RET_ORDER = ['pokemon_center','target','amazon','best_buy','walmart','gamestop','costco','sams_club','barnes_noble','tcgplayer','box_lunch','hottopic','premium_bandai'];
 
-function label(status) {
-  if (status === 'in_stock') return 'IN STOCK';
-  if (status === 'out_of_stock') return 'OUT OF STOCK';
+let state = null;
+let currentFilter = 'all';
+let currentSearch = '';
+
+function q(s) { return document.querySelector(s); }
+function qa(s) { return document.querySelectorAll(s); }
+
+function label(s) {
+  if (s === 'in_stock') return 'IN STOCK';
+  if (s === 'out_of_stock') return 'OUT OF STOCK';
   return 'UNKNOWN';
 }
 
-function retailerTag(r) {
-  const map = {
-    pokemon_center: 'PC', target: 'Target', best_buy: 'BB',
-    gamestop: 'GS', walmart: 'Walmart', costco: 'Costco',
-    sams_club: "Sam's", barnes_noble: 'B&N', tcgplayer: 'TCGP',
-  };
-  return map[r] || r;
-}
-
-async function load() {
-  try {
-    const resp = await fetch(STATE_URL);
-    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-    const state = await resp.json();
-    render(state);
-  } catch (e) {
-    document.getElementById('products').innerHTML =
-      `<div class="error">Failed to load state: ${e.message}</div>`;
-  }
-}
-
-function render(state) {
-  const stats = state.stats || {};
-  const prods = state.products || {};
-  const entries = Object.entries(prods);
-  const inStockCount = entries.filter(([, p]) => p.last_status === 'in_stock').length;
-
-  document.getElementById('stats').innerHTML = `
-    <div class="stat-item"><label>Products</label><value>${entries.length}</value></div>
-    <div class="stat-item"><label>Checks</label><value>${stats.total_checks || 0}</value></div>
-    <div class="stat-item"><label>In Stock</label><value>${inStockCount}</value></div>
-  `;
-
-  const sorted = entries.sort((a, b) => {
-    const o = { in_stock: 0, unknown: 1, out_of_stock: 2 };
-    const sa = o[a[1].last_status] || 3;
-    const sb = o[b[1].last_status] || 3;
-    return sa - sb || (a[1].name || '').localeCompare(b[1].name || '');
-  });
-
-  document.getElementById('products').innerHTML = sorted.map(([, p]) => {
-    const status = p.last_status || 'unknown';
-    const dotClass = status === 'in_stock' ? 'stock' : status === 'out_of_stock' ? 'oos' : 'unknown';
-    const price = p.history && p.history.length > 0 ? p.history[p.history.length - 1].price : null;
-    const checked = p.last_checked ? formatDate(p.last_checked) : '';
-    const notified = p.last_notified ? 'notified ' + formatDate(p.last_notified) : '';
-    const priceHtml = price ? `<span class="price ${status === 'in_stock' ? 'green' : ''}">$${price}</span>` : '';
-    const link = p.url ? escHtml(p.url) : '';
-    const nameHtml = link ? `<a href="${link}" target="_blank" rel="noopener">${escHtml(p.name)}</a>` : escHtml(p.name);
-    const buttonHtml = (status === 'in_stock' && link) ? ` <a href="${link}" target="_blank" rel="noopener" style="font-size:11px;font-weight:500;color:var(--green);padding:2px 6px;border:1px solid rgba(34,198,94,0.2);border-radius:4px;flex-shrink:0;transition:all 0.15s cubic-bezier(0.16,1,0.3,1)">Buy</a>` : '';
-    return `<div class="list-item">
-      <span class="dot ${dotClass}"></span>
-      <span class="name" title="${escHtml(p.name)}">${nameHtml}</span>
-      ${buttonHtml}
-      ${priceHtml}
-      <span class="meta">${checked}</span>
-    </div>`;
-  }).join('');
-
-  document.getElementById('updated').textContent =
-    'Last checked ' + new Date().toLocaleString();
-}
+function retailerTag(r) { return RET_MAP[r] || r; }
 
 function formatDate(s) {
+  if (!s) return '';
   const d = new Date(s);
   const now = new Date();
-  const diffH = (now - d) / 3600000;
-  if (diffH < 1) return Math.round(diffH * 60) + 'm ago';
-  if (diffH < 24) return Math.round(diffH) + 'h ago';
+  const diffS = (now - d) / 1000;
+  if (diffS < 60) return Math.round(diffS) + 's';
+  const diffM = diffS / 60;
+  if (diffM < 60) return Math.round(diffM) + 'm';
+  const diffH = diffM / 60;
+  if (diffH < 24) return Math.round(diffH) + 'h';
   return d.toLocaleDateString();
 }
 
-function escHtml(s) {
+function esc(s) {
   if (s == null) return '';
-  const d = document.createElement('div');
+  var d = document.createElement('div');
   d.textContent = String(s);
   return d.innerHTML;
 }
+
+function categorizeEntries(entries) {
+  var cats = {};
+  entries.forEach(function(e) {
+    var r = e.retailer || 'other';
+    if (!cats[r]) cats[r] = [];
+    cats[r].push(e);
+  });
+  var ordered = [];
+  RET_ORDER.forEach(function(r) {
+    if (cats[r]) ordered.push({ retailer: r, items: cats[r] });
+  });
+  Object.keys(cats).forEach(function(r) {
+    if (RET_ORDER.indexOf(r) === -1) ordered.push({ retailer: r, items: cats[r] });
+  });
+  return ordered;
+}
+
+function trendFrom(product) {
+  var h = product.history;
+  if (!h || h.length < 2) return '';
+  var last2 = h.slice(-2);
+  var a = last2[0].status;
+  var b = last2[1].status;
+  if (a === 'out_of_stock' && b === 'in_stock') return 'up';
+  if (a === 'in_stock' && b === 'out_of_stock') return 'down';
+  return '';
+}
+
+function load() {
+  document.getElementById('products').innerHTML = '<div class="empty">Loading…</div>';
+  fetch(STATE_URL)
+    .then(function(r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(function(s) {
+      state = s;
+      render();
+    })
+    .catch(function(e) {
+      document.getElementById('products').innerHTML =
+        '<div class="empty">Failed to load: ' + esc(e.message) + '</div>';
+    });
+}
+
+function render() {
+  if (!state) return;
+  var stats = state.stats || {};
+  var prods = state.products || {};
+  var entries = Object.keys(prods).map(function(k) { return prods[k]; });
+
+  var inStockCount = entries.filter(function(p) { return p.last_status === 'in_stock'; }).length;
+
+  var byRetailer = {};
+  entries.forEach(function(p) {
+    var r = p.retailer || 'other';
+    if (!byRetailer[r]) byRetailer[r] = { total: 0, inStock: 0 };
+    byRetailer[r].total++;
+    if (p.last_status === 'in_stock') byRetailer[r].inStock++;
+  });
+
+  q('#stats').innerHTML =
+    '<div class="stat-cell"><label>Products</label><value>' + entries.length + '</value></div>' +
+    '<div class="stat-cell"><label>Checks</label><value>' + (stats.total_checks || 0) + '</value></div>' +
+    '<div class="stat-cell"><label>In Stock</label><value class="' + (inStockCount > 0 ? 'green' : '') + '">' + inStockCount + '</value></div>';
+
+  q('#count-all').textContent = entries.length;
+  qa('.filter-btn[data-filter]').forEach(function(btn) {
+    var f = btn.getAttribute('data-filter');
+    var badge = btn.querySelector('.badge');
+    if (badge && byRetailer[f]) badge.textContent = byRetailer[f].inStock + '/' + byRetailer[f].total;
+  });
+
+  var filtered = entries.filter(function(p) {
+    if (currentFilter === 'in_stock') return p.last_status === 'in_stock';
+    if (currentFilter !== 'all') return (p.retailer || 'other') === currentFilter;
+    return true;
+  });
+
+  if (currentSearch) {
+    var qs = currentSearch.toLowerCase();
+    filtered = filtered.filter(function(p) {
+      return (p.name || '').toLowerCase().indexOf(qs) !== -1 ||
+             (p.retailer || '').indexOf(qs) !== -1;
+    });
+  }
+
+  var sorted = filtered.sort(function(a, b) {
+    var o = { in_stock: 0, unknown: 1, out_of_stock: 2 };
+    var sa = o[a.last_status] || 3, sb = o[b.last_status] || 3;
+    if (sa !== sb) return sa - sb;
+    var ra = RET_ORDER.indexOf(a.retailer), rb = RET_ORDER.indexOf(b.retailer);
+    if (ra !== rb && ra !== -1 && rb !== -1) return ra - rb;
+    return (a.name || '').localeCompare(b.name || '');
+  });
+
+  var categories = categorizeEntries(sorted);
+  var html = '';
+
+  if (filtered.length === 0) {
+    html = '<div class="empty">No products match your filter</div>';
+  } else {
+    categories.forEach(function(cat, ci) {
+      if (cat.items.length === 0) return;
+      var inCatStock = cat.items.filter(function(p) { return p.last_status === 'in_stock'; }).length;
+      html += '<div class="section-header"><span>' + retailerTag(cat.retailer) + '</span><span class="sec-count">' + inCatStock + '/' + cat.items.length + '</span></div>';
+      cat.items.forEach(function(p, pi) {
+        var status = p.last_status || 'unknown';
+        var dotClass = status;
+        var price = p.history && p.history.length > 0 ? p.history[p.history.length - 1].price : null;
+        var trend = trendFrom(p);
+        var checked = p.last_checked ? formatDate(p.last_checked) : '';
+        var link = p.url || '';
+        var isStock = status === 'in_stock';
+        var priceHtml = price ? '<span class="price ' + (isStock ? 'green' : '') + '">$' + price + '</span>' : '';
+        var trendHtml = trend ? '<span class="trend ' + trend + '">' + (trend === 'up' ? '&#8593;' : '&#8595;') + '</span>' : '<span class="trend"></span>';
+        var nameHtml = link ? '<a href="' + esc(link) + '" target="_blank" rel="noopener">' + esc(p.name) + '</a>' : esc(p.name);
+        var buyHtml = isStock && link ? '<a href="' + esc(link) + '" class="buy-btn" target="_blank" rel="noopener">Buy</a>' : '';
+        var animDelay = (ci * 5 + pi) * 20;
+        html += '<div class="list-item" style="animation-delay:' + animDelay + 'ms">' +
+          '<span class="dot ' + dotClass + '"></span>' +
+          '<span class="name" title="' + esc(p.name) + '">' + nameHtml + '</span>' +
+          buyHtml +
+          trendHtml +
+          priceHtml +
+          '<span class="checked">' + checked + '</span>' +
+        '</div>';
+      });
+    });
+  }
+
+  q('#products').innerHTML = html;
+
+  renderActivity(entries);
+
+  q('#updated').textContent = 'Updated ' + new Date().toLocaleString();
+}
+
+function renderActivity(entries) {
+  var events = [];
+  entries.forEach(function(p) {
+    var h = p.history;
+    if (!h) return;
+    for (var i = Math.max(0, h.length - 3); i < h.length; i++) {
+      var ev = h[i];
+      if (ev && ev.status) {
+        events.push({ at: ev.at, status: ev.status, name: p.name, reason: ev.reason });
+      }
+    }
+  });
+  events.sort(function(a, b) { return (b.at || '').localeCompare(a.at || ''); });
+  events = events.slice(0, 30);
+
+  if (events.length === 0) {
+    q('#activity').innerHTML = '<div class="activity-item" style="color:var(--text-tertiary)">No changes yet</div>';
+    return;
+  }
+
+  q('#activity').innerHTML = events.map(function(ev) {
+    var dotClass = ev.status === 'in_stock' ? 'green' : 'red';
+    var label = ev.status === 'in_stock' ? 'IN STOCK' : 'OUT OF STOCK';
+    return '<div class="activity-item">' +
+      '<span class="dot-sm ' + dotClass + '"></span>' +
+      '<span><strong>' + esc(label) + '</strong> — ' + esc(ev.name) + '</span>' +
+      '<span class="act-time">' + formatDate(ev.at) + '</span>' +
+    '</div>';
+  }).join('');
+}
+
+qa('.filter-btn[data-filter]').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    qa('.filter-btn[data-filter]').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    currentFilter = btn.getAttribute('data-filter');
+    render();
+  });
+});
+
+q('#search').addEventListener('input', function() {
+  currentSearch = this.value;
+  render();
+});
 
 load();
 </script>

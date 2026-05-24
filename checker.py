@@ -20,6 +20,8 @@ from retailers.costco import CostcoChecker
 from retailers.sams_club import SamsClubChecker
 from retailers.barnes_noble import BarnesNobleChecker
 from retailers.amazon import AmazonChecker
+from retailers.box_lunch import BoxLunchChecker
+from retailers.premium_bandai import PremiumBandaiChecker
 from notifier import send_notifications
 
 CONFIG_PATH = 'config.yaml'
@@ -36,6 +38,9 @@ RETAILER_MAP = {
     'sams_club': SamsClubChecker,
     'barnes_noble': BarnesNobleChecker,
     'amazon': AmazonChecker,
+    'box_lunch': BoxLunchChecker,
+    'hottopic': BoxLunchChecker,
+    'premium_bandai': PremiumBandaiChecker,
 }
 
 
@@ -64,11 +69,13 @@ async def check_product(product, session, user_agents, state, settings, webhook_
     prod_state = state['products'].setdefault(url, {
         'name': name,
         'url': url,
+        'retailer': retailer,
         'last_status': 'unknown',
         'last_notified': None,
         'last_checked': None,
         'history': [],
     })
+    prod_state['retailer'] = retailer
 
     # Reset any previous price from the product dict before checking
     product.pop('_price', None)
@@ -103,7 +110,17 @@ async def check_product(product, session, user_agents, state, settings, webhook_
                 pass
 
     effective_in_stock = in_stock and not skip_reason and price_ok_for_status
-    prod_state['last_status'] = 'in_stock' if effective_in_stock else 'out_of_stock'
+    new_status = 'in_stock' if effective_in_stock else 'out_of_stock'
+    changed = prev_status != new_status
+    prod_state['last_status'] = new_status
+
+    prod_state['history'].append({
+        'at': datetime.now(timezone.utc).isoformat(),
+        'status': new_status,
+        'price': price,
+        'reason': debug[:100],
+    })
+    prod_state['history'] = prod_state['history'][-100:]
 
     ts = datetime.now(timezone.utc).strftime('%H:%M:%S')
     label = 'IN STOCK' if effective_in_stock else 'OUT OF STOCK'
@@ -150,12 +167,6 @@ async def check_product(product, session, user_agents, state, settings, webhook_
                 if sent:
                     state['stats']['notifications_sent'] += sent
                     prod_state['last_notified'] = datetime.now(timezone.utc).isoformat()
-                    prod_state['history'].append({
-                        'at': datetime.now(timezone.utc).isoformat(),
-                        'price': price,
-                    })
-                    # Keep last 50 events
-                    prod_state['history'] = prod_state['history'][-50:]
                     print(f'  → Notifications sent ({sent} channel(s))')
                 else:
                     print('  → Notifications failed')

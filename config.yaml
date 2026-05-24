@@ -460,3 +460,41 @@ products:
     url: "https://www.bestbuy.com/product/one-piece-tcg-royal-blood-booster-box/6584757"
     retailer: best_buy
     target_price: 119.99
+
+  # ── Box Lunch ──────────────────────────────────────
+  - name: "151 ETB (Box Lunch)"
+    url: "https://www.boxlunch.com/product/pokemon-trading-card-game-scarlet-violet-151-elite-trainer-box/31100151.html"
+    retailer: box_lunch
+    target_price: 64.90
+
+  - name: "Destined Rivals ETB (Box Lunch)"
+    url: "https://www.boxlunch.com/product/pokemon-trading-card-game-scarlet-violet-destined-rivals-elite-trainer-box/34342399.html"
+    retailer: box_lunch
+    target_price: 59.90
+
+  # ── Hot Topic ──────────────────────────────────────
+  - name: "Surging Sparks ETB (Hot Topic)"
+    url: "https://www.hottopic.com/product/pokemon-scarlet-violet-surging-sparks-elite-trainer-box/33517099.html"
+    retailer: hottopic
+    target_price: 59.90
+
+  - name: "Twilight Masquerade ETB (Hot Topic)"
+    url: "https://www.hottopic.com/product/pokemon-tcg-scarlet-violet-twilight-masquerade-elite-trainer-box/35187653.html"
+    retailer: hottopic
+    target_price: 49.90
+
+  - name: "Black Bolt ETB (Hot Topic)"
+    url: "https://www.hottopic.com/product/pokemon-tcg-scarlet-violet-black-bolt-elite-trainer-box/34964285.html"
+    retailer: hottopic
+    target_price: 59.90
+
+  # ── Premium Bandai ─────────────────────────────────
+  - name: "One Piece OP-15 Kami's Island Box (P-Bandai)"
+    url: "https://p-bandai.com/us/hotdeals/op15eb04"
+    retailer: premium_bandai
+    target_price: 119.99
+
+  - name: "One Piece OP-13 Carrying On His Will (P-Bandai)"
+    url: "https://p-bandai.com/us/hotdeals/chancetobuyop13"
+    retailer: premium_bandai
+    target_price: 119.99
