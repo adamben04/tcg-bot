@@ -5,6 +5,7 @@ class TCGPlayerChecker(RetailerChecker):
 
     async def check(self, product):
         _, soup = await self._fetch(product['url'])
+        product['_price'] = self._extract_price(soup)
         text = (soup.get_text() or '').lower()
 
         json_ld = self._check_json_ld(soup)
