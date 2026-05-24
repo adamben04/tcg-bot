@@ -1,0 +1,22 @@
+settings:
+  cooldown_minutes: 60
+  user_agents:
+    - Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36
+    - Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36
+    - Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36
+    - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36
+    - Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0
+    - Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:127.0) Gecko/20100101 Firefox/127.0
+    - Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:127.0) Gecko/20100101 Firefox/127.0
+
+products:
+  - name: "Prismatic Evolutions Elite Trainer Box"
+    url: "https://www.pokemoncenter.com/product/754-96687"
+    retailer: pokemon_center
+    image: ""
+
+  - name: "Pokémon TCG 151 Booster Bundle"
+    url: "https://www.target.com/p/pok-mon-tcg-151-booster-bundle/-/A-89782656"
+    retailer: target
+    extra:
+      tcin: "89782656"
