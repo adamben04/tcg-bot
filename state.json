@@ -5,7 +5,7 @@
       "url": "https://www.pokemoncenter.com/product/100-10019",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:43.592141+00:00",
+      "last_checked": "2026-06-07T06:40:18.030317+00:00",
       "retailer": "pokemon_center"
     },
     "https://www.pokemoncenter.com/product/699-42312": {
@@ -13,7 +13,7 @@
       "url": "https://www.pokemoncenter.com/product/699-42312",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:46.074564+00:00",
+      "last_checked": "2026-06-07T06:40:20.567174+00:00",
       "retailer": "pokemon_center"
     },
     "https://www.pokemoncenter.com/product/699-85322": {
@@ -21,7 +21,7 @@
       "url": "https://www.pokemoncenter.com/product/699-85322",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-06T23:48:19.113558+00:00",
+      "last_checked": "2026-06-07T06:40:21.051187+00:00",
       "retailer": "pokemon_center"
     },
     "https://www.pokemoncenter.com/product/290-85619": {
@@ -29,7 +29,7 @@
       "url": "https://www.pokemoncenter.com/product/290-85619",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-06T23:48:11.006561+00:00",
+      "last_checked": "2026-06-07T06:40:19.296987+00:00",
       "retailer": "pokemon_center"
     },
     "https://www.target.com/p/2024-pok-scarlet-violet-s8-5-elite-trainer-box/-/A-93954435": {
@@ -53,7 +53,7 @@
       "url": "https://www.target.com/p/pokemon-trading-card-game-scarlet-38-violet-surging-sparks-booster-bundle/-/A-91619929",
       "last_status": "out_of_stock",
       "last_notified": "2026-05-24T08:52:44.285737+00:00",
-      "last_checked": "2026-06-07T02:00:33.124466+00:00",
+      "last_checked": "2026-06-07T06:40:15.023805+00:00",
       "retailer": "target"
     },
     "https://www.target.com/p/pok-233-mon-trading-card-game-scarlet-38-violet-8212-paldean-fates-elite-trainer-box/-/A-89432659": {
@@ -69,7 +69,7 @@
       "url": "https://www.target.com/p/pok-233-mon-trading-card-game-scarlet-38-violet-8212-paldean-fates-booster-bundle/-/A-89432660",
       "last_status": "out_of_stock",
       "last_notified": "2026-05-24T08:52:45.643339+00:00",
-      "last_checked": "2026-06-07T02:00:41.720041+00:00",
+      "last_checked": "2026-06-07T06:40:15.694212+00:00",
       "retailer": "target"
     },
     "https://www.target.com/p/bandai-one-piece-tcg-adventure-on-kami-s-island-booster-box-op-15-eb-04-24-packs/-/A-1010548868": {
@@ -77,7 +77,7 @@
       "url": "https://www.target.com/p/bandai-one-piece-tcg-adventure-on-kami-s-island-booster-box-op-15-eb-04-24-packs/-/A-1010548868",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:33.797686+00:00",
+      "last_checked": "2026-06-07T06:40:04.658391+00:00",
       "history": [
         {
           "at": "2026-05-24T23:08:54.218824+00:00",
@@ -483,6 +483,12 @@
         },
         {
           "at": "2026-06-07T02:00:33.797698+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "ATC button is disabled"
+        },
+        {
+          "at": "2026-06-07T06:40:04.658403+00:00",
           "status": "out_of_stock",
           "price": null,
           "reason": "ATC button is disabled"
@@ -1713,7 +1719,7 @@
       "url": "https://www.target.com/p/bandai-one-piece-tcg-premium-booster-booster-box-the-best-prb-01/-/A-1001561462",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-06T23:48:08.093410+00:00",
+      "last_checked": "2026-06-07T06:40:07.674757+00:00",
       "history": [
         {
           "at": "2026-05-24T23:09:04.033132+00:00",
@@ -2134,6 +2140,12 @@
           "status": "out_of_stock",
           "price": null,
           "reason": "OOS signal found"
+        },
+        {
+          "at": "2026-06-07T06:40:07.674778+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "OOS signal found"
         }
       ],
       "retailer": "target"
@@ -2143,14 +2155,8 @@
       "url": "https://www.walmart.com/ip/Pokemon-Scarlet-Violet-Prismatic-Evolutions-Elite-Trainer-Box/13816151308",
       "last_status": "out_of_stock",
       "last_notified": "2026-06-02T15:04:26.371348+00:00",
-      "last_checked": "2026-06-06T23:48:05.854402+00:00",
+      "last_checked": "2026-06-07T06:40:02.913370+00:00",
       "history": [
-        {
-          "at": "2026-05-26T20:35:40.373067+00:00",
-          "status": "out_of_stock",
-          "price": null,
-          "reason": "No clear signal \u2014 defaulting to OOS"
-        },
         {
           "at": "2026-05-26T22:10:31.964800+00:00",
           "status": "out_of_stock",
@@ -2744,6 +2750,12 @@
           "status": "out_of_stock",
           "price": null,
           "reason": "No clear signal \u2014 defaulting to OOS"
+        },
+        {
+          "at": "2026-06-07T06:40:02.913384+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "No clear signal \u2014 defaulting to OOS"
         }
       ],
       "retailer": "walmart"
@@ -2753,14 +2765,8 @@
       "url": "https://www.walmart.com/ip/Pokemon-TCG-Scarlet-Violet-Surging-Sparks-Booster-Bundle/15341224796",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:29.199399+00:00",
+      "last_checked": "2026-06-07T06:39:51.022607+00:00",
       "history": [
-        {
-          "at": "2026-05-26T23:33:56.828482+00:00",
-          "status": "out_of_stock",
-          "price": null,
-          "reason": "No clear signal \u2014 defaulting to OOS"
-        },
         {
           "at": "2026-05-27T01:36:47.143983+00:00",
           "status": "out_of_stock",
@@ -3354,6 +3360,12 @@
           "status": "out_of_stock",
           "price": null,
           "reason": "No clear signal \u2014 defaulting to OOS"
+        },
+        {
+          "at": "2026-06-07T06:39:51.022621+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "No clear signal \u2014 defaulting to OOS"
         }
       ],
       "retailer": "walmart"
@@ -3363,14 +3375,8 @@
       "url": "https://www.walmart.com/ip/POKEMON-SV4-5-PALDEAN-FATES-ETB/5226743070",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:41.874224+00:00",
+      "last_checked": "2026-06-07T06:39:52.701074+00:00",
       "history": [
-        {
-          "at": "2026-05-26T23:33:58.440493+00:00",
-          "status": "out_of_stock",
-          "price": null,
-          "reason": "No clear signal \u2014 defaulting to OOS"
-        },
         {
           "at": "2026-05-27T01:36:50.426537+00:00",
           "status": "out_of_stock",
@@ -3964,6 +3970,12 @@
           "status": "out_of_stock",
           "price": null,
           "reason": "No clear signal \u2014 defaulting to OOS"
+        },
+        {
+          "at": "2026-06-07T06:39:52.701087+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "No clear signal \u2014 defaulting to OOS"
         }
       ],
       "retailer": "walmart"
@@ -3973,14 +3985,8 @@
       "url": "https://www.walmart.com/ip/Bandai-One-Piece-Card-Game-Premium-Booster-Box-PRB-01-THE-BEST/8166567581",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:33.567742+00:00",
+      "last_checked": "2026-06-07T06:39:50.367774+00:00",
       "history": [
-        {
-          "at": "2026-05-26T18:38:38.077207+00:00",
-          "status": "out_of_stock",
-          "price": null,
-          "reason": "No clear signal \u2014 defaulting to OOS"
-        },
         {
           "at": "2026-05-26T22:10:37.833510+00:00",
           "status": "out_of_stock",
@@ -4574,6 +4580,12 @@
           "status": "out_of_stock",
           "price": null,
           "reason": "No clear signal \u2014 defaulting to OOS"
+        },
+        {
+          "at": "2026-06-07T06:39:50.367788+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "No clear signal \u2014 defaulting to OOS"
         }
       ],
       "retailer": "walmart"
@@ -4583,14 +4595,8 @@
       "url": "https://www.costco.com/p/-/pokmon-tcg-charizard-ex-super-premium-collection/4000313298",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:41.847854+00:00",
+      "last_checked": "2026-06-07T06:40:20.242772+00:00",
       "history": [
-        {
-          "at": "2026-05-27T10:16:18.382297+00:00",
-          "status": "out_of_stock",
-          "price": null,
-          "reason": "No clear signal \u2014 defaulting to OOS"
-        },
         {
           "at": "2026-05-27T13:53:04.949267+00:00",
           "status": "out_of_stock",
@@ -5184,6 +5190,12 @@
           "status": "out_of_stock",
           "price": null,
           "reason": "No clear signal \u2014 defaulting to OOS"
+        },
+        {
+          "at": "2026-06-07T06:40:20.242795+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "JSON-LD: out of stock"
         }
       ],
       "retailer": "costco"
@@ -5193,14 +5205,8 @@
       "url": "https://www.costco.com/pok%C3%A9mon-evolving-skies-elite-trainer-box-%2B-vaporeon-window-tin.product.100983804.html",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:34.468849+00:00",
+      "last_checked": "2026-06-07T06:40:06.706254+00:00",
       "history": [
-        {
-          "at": "2026-05-27T10:16:14.350506+00:00",
-          "status": "out_of_stock",
-          "price": null,
-          "reason": "No clear signal \u2014 defaulting to OOS"
-        },
         {
           "at": "2026-05-27T13:53:02.374440+00:00",
           "status": "out_of_stock",
@@ -5794,6 +5800,12 @@
           "status": "out_of_stock",
           "price": null,
           "reason": "No clear signal \u2014 defaulting to OOS"
+        },
+        {
+          "at": "2026-06-07T06:40:06.706274+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "No clear signal \u2014 defaulting to OOS"
         }
       ],
       "retailer": "costco"
@@ -5803,14 +5815,8 @@
       "url": "https://www.samsclub.com/ip/pokemon-surprise-box-booster-bundle/18933156288",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:30.512958+00:00",
+      "last_checked": "2026-06-07T06:40:02.954944+00:00",
       "history": [
-        {
-          "at": "2026-05-27T19:29:29.003257+00:00",
-          "status": "out_of_stock",
-          "price": null,
-          "reason": "No clear signal \u2014 defaulting to OOS"
-        },
         {
           "at": "2026-05-27T21:23:32.793717+00:00",
           "status": "out_of_stock",
@@ -6404,6 +6410,12 @@
           "status": "out_of_stock",
           "price": null,
           "reason": "No clear signal \u2014 defaulting to OOS"
+        },
+        {
+          "at": "2026-06-07T06:40:02.954958+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "No clear signal \u2014 defaulting to OOS"
         }
       ],
       "retailer": "sams_club"
@@ -6413,14 +6425,8 @@
       "url": "https://www.barnesandnoble.com/w/pokemon-scarlet-violet-s85-prismatic-evolutions-surprise-box-pokemon/1146599417",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:30.569191+00:00",
+      "last_checked": "2026-06-07T06:39:51.472274+00:00",
       "history": [
-        {
-          "at": "2026-05-27T06:01:34.059621+00:00",
-          "status": "out_of_stock",
-          "price": null,
-          "reason": "No clear signal \u2014 defaulting to OOS"
-        },
         {
           "at": "2026-05-27T10:16:14.223629+00:00",
           "status": "out_of_stock",
@@ -7014,6 +7020,12 @@
           "status": "out_of_stock",
           "price": null,
           "reason": "No clear signal \u2014 defaulting to OOS"
+        },
+        {
+          "at": "2026-06-07T06:39:51.472293+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "No clear signal \u2014 defaulting to OOS"
         }
       ],
       "retailer": "barnes_noble"
@@ -7023,14 +7035,8 @@
       "url": "https://www.barnesandnoble.com/w/pokemon-ionos-bellibolt-premium-coll-ex-box-pokemon/1147265179",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:18.677954+00:00",
+      "last_checked": "2026-06-07T06:40:05.510872+00:00",
       "history": [
-        {
-          "at": "2026-05-27T10:16:14.818868+00:00",
-          "status": "out_of_stock",
-          "price": null,
-          "reason": "No clear signal \u2014 defaulting to OOS"
-        },
         {
           "at": "2026-05-27T13:52:57.959574+00:00",
           "status": "out_of_stock",
@@ -7624,6 +7630,12 @@
           "status": "out_of_stock",
           "price": null,
           "reason": "No clear signal \u2014 defaulting to OOS"
+        },
+        {
+          "at": "2026-06-07T06:40:05.510906+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "No clear signal \u2014 defaulting to OOS"
         }
       ],
       "retailer": "barnes_noble"
@@ -8081,7 +8093,7 @@
       "url": "https://www.amazon.com/dp/B0DN98RVZM",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:43.217428+00:00",
+      "last_checked": "2026-06-07T06:40:10.202610+00:00",
       "history": [
         {
           "at": "2026-05-24T23:08:41.902979+00:00",
@@ -8484,6 +8496,12 @@
           "status": "out_of_stock",
           "price": "99.93",
           "reason": "In stock but Symbiotik Comics"
+        },
+        {
+          "at": "2026-06-07T06:40:10.202637+00:00",
+          "status": "out_of_stock",
+          "price": "102.99",
+          "reason": "ATC button enabled"
         }
       ],
       "retailer": "amazon"
@@ -8493,7 +8511,7 @@
       "url": "https://www.amazon.com/dp/B0DDYXQCZ4",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-06T19:14:54.519113+00:00",
+      "last_checked": "2026-06-07T06:40:02.114024+00:00",
       "history": [
         {
           "at": "2026-05-24T23:08:51.144725+00:00",
@@ -8926,6 +8944,12 @@
           "status": "out_of_stock",
           "price": null,
           "reason": "Mixed signals \u2014 defaulting to OOS"
+        },
+        {
+          "at": "2026-06-07T06:40:02.114053+00:00",
+          "status": "out_of_stock",
+          "price": "168.88",
+          "reason": "In stock but AIGDistributionLLC"
         }
       ],
       "retailer": "amazon"
@@ -9317,7 +9341,7 @@
       "url": "https://www.amazon.com/dp/B0CNFJ4QBP",
       "last_status": "out_of_stock",
       "last_notified": "2026-05-30T22:13:47.465476+00:00",
-      "last_checked": "2026-06-07T02:00:31.192359+00:00",
+      "last_checked": "2026-06-07T06:40:02.413671+00:00",
       "history": [
         {
           "at": "2026-05-24T23:43:38.572488+00:00",
@@ -9756,6 +9780,12 @@
           "status": "out_of_stock",
           "price": "218.99",
           "reason": "In stock but T&C Closet"
+        },
+        {
+          "at": "2026-06-07T06:40:02.413692+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "Mixed signals \u2014 defaulting to OOS"
         }
       ],
       "retailer": "amazon"
@@ -9765,7 +9795,7 @@
       "url": "https://www.amazon.com/dp/B0C8YBXDYQ",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:19.968004+00:00",
+      "last_checked": "2026-06-07T06:40:07.609119+00:00",
       "history": [
         {
           "at": "2026-05-24T23:09:09.186171+00:00",
@@ -10252,6 +10282,12 @@
           "status": "out_of_stock",
           "price": "51.44",
           "reason": "ATC text found"
+        },
+        {
+          "at": "2026-06-07T06:40:07.609150+00:00",
+          "status": "out_of_stock",
+          "price": "51.42",
+          "reason": "ATC text found"
         }
       ],
       "retailer": "amazon"
@@ -10261,7 +10297,7 @@
       "url": "https://www.amazon.com/dp/B0CXY99B6D",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-06T23:47:53.621375+00:00",
+      "last_checked": "2026-06-07T06:39:50.072619+00:00",
       "history": [
         {
           "at": "2026-05-24T23:08:52.426743+00:00",
@@ -10628,6 +10664,12 @@
           "status": "out_of_stock",
           "price": "132.99",
           "reason": "In stock but Atlas Operations"
+        },
+        {
+          "at": "2026-06-07T06:39:50.072635+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "No clear signal \u2014 defaulting to OOS"
         }
       ],
       "retailer": "amazon"
@@ -10637,7 +10679,7 @@
       "url": "https://www.pokemoncenter.com/product/10-10399-112/pokemon-tcg-mega-evolution-chaos-rising-pokemon-center-elite-trainer-box",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:43.598161+00:00",
+      "last_checked": "2026-06-07T06:40:17.433538+00:00",
       "history": [
         {
           "at": "2026-05-24T23:09:17.109363+00:00",
@@ -11160,6 +11202,12 @@
           "status": "out_of_stock",
           "price": null,
           "reason": "No clear signal \u2014 defaulting to OOS"
+        },
+        {
+          "at": "2026-06-07T06:40:17.433559+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "No clear signal \u2014 defaulting to OOS"
         }
       ],
       "retailer": "pokemon_center"
@@ -11169,7 +11217,7 @@
       "url": "https://www.target.com/p/pok-233-mon-trading-card-game-mega-evolution-chaos-rising-elite-trainer-box/-/A-95267143",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:41.239868+00:00",
+      "last_checked": "2026-06-07T06:40:12.659649+00:00",
       "history": [
         {
           "at": "2026-05-24T23:43:39.523318+00:00",
@@ -11602,6 +11650,12 @@
           "status": "out_of_stock",
           "price": null,
           "reason": "ATC button is disabled"
+        },
+        {
+          "at": "2026-06-07T06:40:12.659669+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "ATC button is disabled"
         }
       ],
       "retailer": "target"
@@ -11611,7 +11665,7 @@
       "url": "https://www.target.com/p/pok-233-mon-trading-card-game-mega-evolution-chaos-rising-booster-bundle/-/A-95298172",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-06T23:48:03.623784+00:00",
+      "last_checked": "2026-06-07T06:40:12.092775+00:00",
       "history": [
         {
           "at": "2026-05-24T23:09:05.853212+00:00",
@@ -12047,6 +12101,12 @@
         },
         {
           "at": "2026-06-06T23:48:03.623806+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "ATC button is disabled"
+        },
+        {
+          "at": "2026-06-07T06:40:12.092802+00:00",
           "status": "out_of_stock",
           "price": null,
           "reason": "ATC button is disabled"
@@ -12525,7 +12585,7 @@
       "url": "https://www.amazon.com/dp/B0GFZV1ZVV",
       "last_status": "out_of_stock",
       "last_notified": "2026-05-30T16:33:15.260941+00:00",
-      "last_checked": "2026-06-06T22:45:32.242110+00:00",
+      "last_checked": "2026-06-07T06:39:52.054218+00:00",
       "history": [
         {
           "at": "2026-05-24T23:09:14.703580+00:00",
@@ -12982,6 +13042,12 @@
           "status": "out_of_stock",
           "price": "85.11",
           "reason": "In stock but Exo global distribution"
+        },
+        {
+          "at": "2026-06-07T06:39:52.054240+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "Mixed signals \u2014 defaulting to OOS"
         }
       ],
       "retailer": "amazon"
@@ -12991,7 +13057,7 @@
       "url": "https://www.amazon.com/dp/B0G3CY83L5",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:33.120070+00:00",
+      "last_checked": "2026-06-07T06:40:09.643792+00:00",
       "history": [
         {
           "at": "2026-05-24T23:43:26.547775+00:00",
@@ -13403,6 +13469,12 @@
         },
         {
           "at": "2026-06-07T02:00:33.120089+00:00",
+          "status": "out_of_stock",
+          "price": "92.40",
+          "reason": "ATC text found"
+        },
+        {
+          "at": "2026-06-07T06:40:09.643828+00:00",
           "status": "out_of_stock",
           "price": "92.40",
           "reason": "ATC text found"
@@ -13842,7 +13914,7 @@
       "url": "https://www.amazon.com/dp/B0DLQRKYDY",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:45.504334+00:00",
+      "last_checked": "2026-06-07T06:39:52.412360+00:00",
       "history": [
         {
           "at": "2026-05-24T23:09:03.009259+00:00",
@@ -14317,6 +14389,12 @@
           "status": "out_of_stock",
           "price": "49.98",
           "reason": "In stock but Package Outbound"
+        },
+        {
+          "at": "2026-06-07T06:39:52.412383+00:00",
+          "status": "out_of_stock",
+          "price": "49.69",
+          "reason": "In stock but DynamaxDeals"
         }
       ],
       "retailer": "amazon"
@@ -15514,14 +15592,8 @@
       "url": "https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-prismatic-evolutions--mini-tin-styles-may-vary/20018747.html",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:34.391152+00:00",
+      "last_checked": "2026-06-07T06:40:13.497072+00:00",
       "history": [
-        {
-          "at": "2026-05-26T16:14:28.908097+00:00",
-          "status": "out_of_stock",
-          "price": null,
-          "reason": "No clear signal - defaulting to OOS"
-        },
         {
           "at": "2026-05-26T18:38:44.323538+00:00",
           "status": "out_of_stock",
@@ -16115,6 +16187,12 @@
           "status": "out_of_stock",
           "price": null,
           "reason": "No clear signal - defaulting to OOS"
+        },
+        {
+          "at": "2026-06-07T06:40:13.497099+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "No clear signal - defaulting to OOS"
         }
       ],
       "retailer": "gamestop"
@@ -16124,14 +16202,8 @@
       "url": "https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-prismatic-evolutions-binder-collection/20018509.html",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:44.251915+00:00",
+      "last_checked": "2026-06-07T06:40:13.472810+00:00",
       "history": [
-        {
-          "at": "2026-05-25T22:32:18.431266+00:00",
-          "status": "out_of_stock",
-          "price": null,
-          "reason": "No clear signal - defaulting to OOS"
-        },
         {
           "at": "2026-05-25T23:42:58.012365+00:00",
           "status": "out_of_stock",
@@ -16725,6 +16797,12 @@
           "status": "out_of_stock",
           "price": null,
           "reason": "No clear signal - defaulting to OOS"
+        },
+        {
+          "at": "2026-06-07T06:40:13.472835+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "No clear signal - defaulting to OOS"
         }
       ],
       "retailer": "gamestop"
@@ -17158,14 +17236,8 @@
       "url": "https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-scarlet-and-violet-surging-sparks-booster-bundle/20015262.html",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:01:05.200924+00:00",
+      "last_checked": "2026-06-07T06:40:18.190705+00:00",
       "history": [
-        {
-          "at": "2026-05-26T05:48:45.184607+00:00",
-          "status": "out_of_stock",
-          "price": null,
-          "reason": "No clear signal - defaulting to OOS"
-        },
         {
           "at": "2026-05-26T08:59:23.824058+00:00",
           "status": "out_of_stock",
@@ -17756,6 +17828,12 @@
         },
         {
           "at": "2026-06-07T02:01:05.200939+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "No clear signal - defaulting to OOS"
+        },
+        {
+          "at": "2026-06-07T06:40:18.190732+00:00",
           "status": "out_of_stock",
           "price": null,
           "reason": "No clear signal - defaulting to OOS"
@@ -18640,7 +18718,7 @@
       "url": "https://www.target.com/p/pokemon-trading-card-game-scarlet-38-violet-151-elite-trainer-box/-/A-88897899",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:32.820531+00:00",
+      "last_checked": "2026-06-07T06:40:04.663899+00:00",
       "history": [
         {
           "at": "2026-05-25T01:54:44.414454+00:00",
@@ -19013,6 +19091,12 @@
           "status": "out_of_stock",
           "price": null,
           "reason": "ATC button is disabled"
+        },
+        {
+          "at": "2026-06-07T06:40:04.663910+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "ATC button is disabled"
         }
       ],
       "retailer": "target"
@@ -19022,14 +19106,8 @@
       "url": "https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-chaos-rising-elite-trainer-box/20033749.html",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:33.222371+00:00",
+      "last_checked": "2026-06-07T06:40:20.254641+00:00",
       "history": [
-        {
-          "at": "2026-05-26T16:14:28.262035+00:00",
-          "status": "out_of_stock",
-          "price": null,
-          "reason": "No clear signal - defaulting to OOS"
-        },
         {
           "at": "2026-05-26T18:38:41.262981+00:00",
           "status": "out_of_stock",
@@ -19623,6 +19701,12 @@
           "status": "out_of_stock",
           "price": null,
           "reason": "No clear signal - defaulting to OOS"
+        },
+        {
+          "at": "2026-06-07T06:40:20.254668+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "No clear signal - defaulting to OOS"
         }
       ],
       "retailer": "gamestop"
@@ -19650,7 +19734,7 @@
       "url": "https://www.pokemoncenter.com/product/190-85923/pokemon-tcg-scarlet-and-violet-stellar-crown-pokemon-center-elite-trainer-box",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-06T23:48:23.873917+00:00",
+      "last_checked": "2026-06-07T06:40:19.524116+00:00",
       "history": [
         {
           "at": "2026-05-24T23:09:17.216486+00:00",
@@ -20179,6 +20263,12 @@
           "status": "out_of_stock",
           "price": null,
           "reason": "No clear signal \u2014 defaulting to OOS"
+        },
+        {
+          "at": "2026-06-07T06:40:19.524136+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "No clear signal \u2014 defaulting to OOS"
         }
       ],
       "retailer": "pokemon_center"
@@ -20188,7 +20278,7 @@
       "url": "https://www.pokemoncenter.com/product/188-85717/pokemon-tcg-scarlet-and-violet-temporal-forces-pokemon-center-elite-trainer-box-walking-wake",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:43.577486+00:00",
+      "last_checked": "2026-06-07T06:40:20.312895+00:00",
       "history": [
         {
           "at": "2026-05-24T23:09:21.360421+00:00",
@@ -20681,6 +20771,12 @@
           "status": "out_of_stock",
           "price": null,
           "reason": "No clear signal \u2014 defaulting to OOS"
+        },
+        {
+          "at": "2026-06-07T06:40:20.312918+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "No clear signal \u2014 defaulting to OOS"
         }
       ],
       "retailer": "pokemon_center"
@@ -20690,7 +20786,7 @@
       "url": "https://www.pokemoncenter.com/product/290-85854/pokemon-tcg-scarlet-and-violet-shrouded-fable-pokemon-center-elite-trainer-box",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-06T23:48:19.119671+00:00",
+      "last_checked": "2026-06-07T06:40:20.646488+00:00",
       "history": [
         {
           "at": "2026-05-24T23:09:22.739882+00:00",
@@ -21231,6 +21327,12 @@
           "status": "out_of_stock",
           "price": null,
           "reason": "No clear signal \u2014 defaulting to OOS"
+        },
+        {
+          "at": "2026-06-07T06:40:20.646508+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "No clear signal \u2014 defaulting to OOS"
         }
       ],
       "retailer": "pokemon_center"
@@ -21240,7 +21342,7 @@
       "url": "https://www.target.com/p/pok-233-mon-trading-card-game-scarlet-38-violet-stellar-crown-elite-trainer-box/-/A-91619912",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:30.105226+00:00",
+      "last_checked": "2026-06-07T06:40:05.331468+00:00",
       "history": [
         {
           "at": "2026-05-24T23:09:07.593459+00:00",
@@ -21613,6 +21715,12 @@
           "status": "out_of_stock",
           "price": null,
           "reason": "ATC button is disabled"
+        },
+        {
+          "at": "2026-06-07T06:40:05.331494+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "ATC button is disabled"
         }
       ],
       "retailer": "target"
@@ -21622,7 +21730,7 @@
       "url": "https://www.target.com/p/pok-233-mon-trading-card-game-scarlet-38-violet-stellar-crown-booster-bundle/-/A-91619942",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-06T22:45:26.184505+00:00",
+      "last_checked": "2026-06-07T06:40:14.842840+00:00",
       "history": [
         {
           "at": "2026-05-24T23:08:51.714002+00:00",
@@ -22040,6 +22148,12 @@
         },
         {
           "at": "2026-06-06T22:45:26.184523+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "ATC button is disabled"
+        },
+        {
+          "at": "2026-06-07T06:40:14.842870+00:00",
           "status": "out_of_stock",
           "price": null,
           "reason": "ATC button is disabled"
@@ -23180,7 +23294,7 @@
       "url": "https://www.target.com/p/pok-233-mon-trading-card-game-scarlet-38-violet-8212-shrouded-fable-elite-trainer-box/-/A-91600215",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-06T23:48:06.365495+00:00",
+      "last_checked": "2026-06-07T06:40:08.156118+00:00",
       "history": [
         {
           "at": "2026-05-24T23:09:04.151013+00:00",
@@ -23643,6 +23757,12 @@
           "status": "out_of_stock",
           "price": null,
           "reason": "ATC button is disabled"
+        },
+        {
+          "at": "2026-06-07T06:40:08.156137+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "ATC button is disabled"
         }
       ],
       "retailer": "target"
@@ -23652,7 +23772,7 @@
       "url": "https://www.target.com/p/pok-233-mon-trading-card-game-scarlet-38-violet-shrouded-fable-booster-bundle/-/A-92436710",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:40.256537+00:00",
+      "last_checked": "2026-06-07T06:40:13.543948+00:00",
       "history": [
         {
           "at": "2026-05-24T23:09:04.103827+00:00",
@@ -24085,6 +24205,12 @@
           "status": "out_of_stock",
           "price": null,
           "reason": "ATC button is disabled"
+        },
+        {
+          "at": "2026-06-07T06:40:13.543977+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "ATC button is disabled"
         }
       ],
       "retailer": "target"
@@ -24094,7 +24220,7 @@
       "url": "https://www.target.com/p/pok-233-mon-trading-card-game-scarlet-38-violet-151-binder-collection/-/A-89444929",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:27.978935+00:00",
+      "last_checked": "2026-06-07T06:40:10.778034+00:00",
       "history": [
         {
           "at": "2026-05-24T23:08:52.341257+00:00",
@@ -24551,6 +24677,12 @@
           "status": "out_of_stock",
           "price": null,
           "reason": "ATC button is disabled"
+        },
+        {
+          "at": "2026-06-07T06:40:10.783511+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "ATC button is disabled"
         }
       ],
       "retailer": "target"
@@ -24984,7 +25116,7 @@
       "url": "https://www.amazon.com/Pokemon-TCG-Scarlet-Stellar-Trainer/dp/B0D894GL5B",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:43.871817+00:00",
+      "last_checked": "2026-06-07T06:39:50.781616+00:00",
       "history": [
         {
           "at": "2026-05-24T23:09:05.432318+00:00",
@@ -25440,6 +25572,12 @@
           "at": "2026-06-07T02:00:43.871841+00:00",
           "status": "out_of_stock",
           "price": "189.97",
+          "reason": "In stock but Strawberri Entertainment"
+        },
+        {
+          "at": "2026-06-07T06:39:50.781633+00:00",
+          "status": "out_of_stock",
+          "price": null,
           "reason": "In stock but Strawberri Entertainment"
         }
       ],
@@ -26328,7 +26466,7 @@
       "url": "https://www.amazon.com/Pokemon-Scarlet-Violet-Binder-Collection/dp/B0C8XWR7BV",
       "last_status": "out_of_stock",
       "last_notified": "2026-05-24T20:37:09.949148+00:00",
-      "last_checked": "2026-06-06T23:48:02.767823+00:00",
+      "last_checked": "2026-06-07T06:40:04.648717+00:00",
       "history": [
         {
           "at": "2026-05-24T20:37:09.949164+00:00",
@@ -26825,6 +26963,12 @@
           "status": "out_of_stock",
           "price": "314.89",
           "reason": "In stock but Empire of the Senses"
+        },
+        {
+          "at": "2026-06-07T06:40:04.648739+00:00",
+          "status": "out_of_stock",
+          "price": "314.89",
+          "reason": "In stock but Empire of the Senses"
         }
       ],
       "retailer": "amazon"
@@ -26835,14 +26979,8 @@
       "retailer": "box_lunch",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:19.130224+00:00",
+      "last_checked": "2026-06-07T06:40:11.937416+00:00",
       "history": [
-        {
-          "at": "2026-05-27T10:15:58.676655+00:00",
-          "status": "out_of_stock",
-          "price": "51.92",
-          "reason": "JSON-LD: out of stock"
-        },
         {
           "at": "2026-05-27T13:52:58.108067+00:00",
           "status": "out_of_stock",
@@ -27436,6 +27574,12 @@
           "status": "out_of_stock",
           "price": "64.90",
           "reason": "JSON-LD: out of stock"
+        },
+        {
+          "at": "2026-06-07T06:40:11.937439+00:00",
+          "status": "out_of_stock",
+          "price": "64.90",
+          "reason": "JSON-LD: out of stock"
         }
       ]
     },
@@ -27445,7 +27589,7 @@
       "retailer": "pokemon_center",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-06T23:48:26.013684+00:00",
+      "last_checked": "2026-06-07T06:40:21.027312+00:00",
       "history": [
         {
           "at": "2026-05-24T23:09:19.192080+00:00",
@@ -27977,6 +28121,12 @@
         },
         {
           "at": "2026-06-06T23:48:26.013702+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "No clear signal \u2014 defaulting to OOS"
+        },
+        {
+          "at": "2026-06-07T06:40:21.027340+00:00",
           "status": "out_of_stock",
           "price": null,
           "reason": "No clear signal \u2014 defaulting to OOS"
@@ -29089,14 +29239,8 @@
       "retailer": "gamestop",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:32.831054+00:00",
+      "last_checked": "2026-06-07T06:40:21.049365+00:00",
       "history": [
-        {
-          "at": "2026-05-26T20:35:36.094761+00:00",
-          "status": "out_of_stock",
-          "price": null,
-          "reason": "No clear signal - defaulting to OOS"
-        },
         {
           "at": "2026-05-26T22:10:37.655337+00:00",
           "status": "out_of_stock",
@@ -29690,6 +29834,12 @@
           "status": "out_of_stock",
           "price": null,
           "reason": "No clear signal - defaulting to OOS"
+        },
+        {
+          "at": "2026-06-07T06:40:21.049383+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "No clear signal - defaulting to OOS"
         }
       ]
     },
@@ -29699,14 +29849,8 @@
       "retailer": "hottopic",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:19.792197+00:00",
+      "last_checked": "2026-06-07T06:39:53.369654+00:00",
       "history": [
-        {
-          "at": "2026-05-27T06:01:53.184263+00:00",
-          "status": "out_of_stock",
-          "price": "59.90",
-          "reason": "JSON-LD: out of stock"
-        },
         {
           "at": "2026-05-27T10:16:09.048122+00:00",
           "status": "out_of_stock",
@@ -30300,6 +30444,12 @@
           "status": "out_of_stock",
           "price": "59.90",
           "reason": "JSON-LD: out of stock"
+        },
+        {
+          "at": "2026-06-07T06:39:53.369674+00:00",
+          "status": "out_of_stock",
+          "price": "59.90",
+          "reason": "JSON-LD: out of stock"
         }
       ]
     },
@@ -30309,14 +30459,8 @@
       "retailer": "hottopic",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:19.249182+00:00",
+      "last_checked": "2026-06-07T06:40:03.251807+00:00",
       "history": [
-        {
-          "at": "2026-05-26T23:33:53.654785+00:00",
-          "status": "out_of_stock",
-          "price": "89.90",
-          "reason": "JSON-LD: out of stock"
-        },
         {
           "at": "2026-05-27T01:36:44.094723+00:00",
           "status": "out_of_stock",
@@ -30910,6 +31054,12 @@
           "status": "out_of_stock",
           "price": "89.90",
           "reason": "JSON-LD: out of stock"
+        },
+        {
+          "at": "2026-06-07T06:40:03.251827+00:00",
+          "status": "out_of_stock",
+          "price": "89.90",
+          "reason": "JSON-LD: out of stock"
         }
       ]
     },
@@ -30919,14 +31069,8 @@
       "retailer": "hottopic",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:27.973954+00:00",
+      "last_checked": "2026-06-07T06:40:02.614081+00:00",
       "history": [
-        {
-          "at": "2026-05-27T01:36:46.894352+00:00",
-          "status": "out_of_stock",
-          "price": "82.90",
-          "reason": "JSON-LD: out of stock"
-        },
         {
           "at": "2026-05-27T06:01:46.431697+00:00",
           "status": "out_of_stock",
@@ -31520,6 +31664,12 @@
           "status": "out_of_stock",
           "price": "82.90",
           "reason": "JSON-LD: out of stock"
+        },
+        {
+          "at": "2026-06-07T06:40:02.614102+00:00",
+          "status": "out_of_stock",
+          "price": "82.90",
+          "reason": "JSON-LD: out of stock"
         }
       ]
     },
@@ -31529,14 +31679,8 @@
       "retailer": "premium_bandai",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:31.514572+00:00",
+      "last_checked": "2026-06-07T06:40:06.523305+00:00",
       "history": [
-        {
-          "at": "2026-05-26T23:33:56.719553+00:00",
-          "status": "out_of_stock",
-          "price": null,
-          "reason": "No clear signal \u2014 defaulting to OOS"
-        },
         {
           "at": "2026-05-27T01:36:45.252488+00:00",
           "status": "out_of_stock",
@@ -32130,6 +32274,12 @@
           "status": "out_of_stock",
           "price": null,
           "reason": "No clear signal \u2014 defaulting to OOS"
+        },
+        {
+          "at": "2026-06-07T06:40:06.523332+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "No clear signal \u2014 defaulting to OOS"
         }
       ]
     },
@@ -32139,14 +32289,8 @@
       "retailer": "premium_bandai",
       "last_status": "out_of_stock",
       "last_notified": null,
-      "last_checked": "2026-06-07T02:00:31.211327+00:00",
+      "last_checked": "2026-06-07T06:40:06.109888+00:00",
       "history": [
-        {
-          "at": "2026-05-26T18:38:24.773758+00:00",
-          "status": "out_of_stock",
-          "price": null,
-          "reason": "No clear signal \u2014 defaulting to OOS"
-        },
         {
           "at": "2026-05-26T20:35:43.757349+00:00",
           "status": "out_of_stock",
@@ -32740,12 +32884,18 @@
           "status": "out_of_stock",
           "price": null,
           "reason": "No clear signal \u2014 defaulting to OOS"
+        },
+        {
+          "at": "2026-06-07T06:40:06.109912+00:00",
+          "status": "out_of_stock",
+          "price": null,
+          "reason": "No clear signal \u2014 defaulting to OOS"
         }
       ]
     }
   },
   "stats": {
-    "total_checks": 7243,
+    "total_checks": 7294,
     "notifications_sent": 26
   }
 }
